@@ -4,205 +4,278 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zone 15 (Z15)</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="scanlines.css">
 <style>
-/* --- Body --- */
+/* --- General Body --- */
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   font-family: Arial, sans-serif;
   background-color: black;
-  color: white;
-  overflow: hidden; /* disable scrolling */
-}
-
-/* --- Enter Overlay --- */
-#enterOverlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: black;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  cursor: pointer;
-  z-index: 20;
-  transition: opacity 1s ease;
-}
-#enterOverlay h1 {
-  font-size: 3em;
-  text-shadow: 0 0 2px white, 0 0 4px white;
-  animation: glowPulse 2s infinite;
-}
-#enterOverlay p {
-  font-size: 1.5em;
-  margin-top: 20px;
-  text-shadow: 0 0 1px white;
-}
-
-/* --- Main Section --- */
-.main-section {
-  text-align: center;
-  opacity: 0;
-  display: none;
-  transition: opacity 1.5s ease;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  margin-top: 150px; /* lowered content */
-}
-.main-section img {
-  max-width: 250px;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 1px white) drop-shadow(0 0 2px white);
-  animation: glowPulse 2s infinite;
-  pointer-events: none;
-  transform: translateY(-20px);
-}
-.header {
-  font-size: 3em;
-  margin-bottom: 20px;
-  color: white;
-  text-shadow: 0 0 2px white, 0 0 4px white;
-  animation: glowPulse 2s infinite;
-  cursor: pointer;
-  margin-top: 0;
-}
-
-/* --- Description Box --- */
-.description-box {
-  margin-top: 20px;
-  padding: 20px;
-  width: 300px;
-  max-width: 90%;
-  background-color: #111;
-  border: 2px solid #ffdab9;
-  border-radius: 10px;
   color: #ffdab9;
-  font-size: 1.2em;
-  text-align: center;
-  box-shadow: 0 0 10px #ffdab9;
+  overflow: hidden;
+  display: flex;
 }
 
-/* --- Full-Height Sidebar --- */
+/* --- Sidebar --- */
 #sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 50px; /* thin tab initially */
-  height: 100%; /* full height */
+  width: 50px;
   background-color: #111;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 0 0 8px #ffdab9;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   padding-top: 20px;
-  z-index: 15;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 0 8px #ffdab9;
   transition: width 0.3s ease;
-  cursor: pointer;
+  z-index: 2;
 }
-#sidebar:hover {
-  width: 180px; /* expand on hover */
-}
+#sidebar:hover { width: 180px; }
 #sidebar a {
   color: #ffdab9;
   text-decoration: none;
   font-weight: bold;
-  text-shadow: 0 0 4px #ffdab9;
   padding: 10px;
   width: 100%;
   text-align: left;
   white-space: nowrap;
+  opacity: 0;
   margin-bottom: 10px;
-  opacity: 0; /* hidden initially */
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-#sidebar:hover a {
-  opacity: 1;
-  transform: translateX(10px);
+#sidebar:hover a { opacity: 1; transform: translateX(10px); }
+
+/* --- Main content area --- */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* --- Tabs --- */
+.tab { display: none; }
+.tab.active { display: flex; flex-direction: column; align-items: center; }
+
+/* --- Home --- */
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.main-section img {
+  max-width: 200px;
+  filter: drop-shadow(0 0 2px #ffdab9) drop-shadow(0 0 4px #ffdab9);
+  animation: glowPulse 2s infinite;
+}
+.header { font-size: 3em; margin: 0; text-shadow: 0 0 2px #ffdab9, 0 0 4px #ffdab9; }
+.description-box {
+  padding: 15px 25px;
+  max-width: 400px;
+  width: auto;
+  background-color: #111;
+  border: 2px solid #ffdab9;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px #ffdab9;
+  min-height: 0;
+}
+
+/* --- Click to Enter overlay --- */
+#enter-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background-color: black;
+  display: flex; justify-content: center; align-items: center;
+  color: #ffdab9; font-size: 2em; cursor: pointer;
+  z-index: 10; flex-direction: column; text-align: center;
+  animation: fadeIn 1s ease;
+}
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+/* --- Roster --- */
+.roster-wrapper {
+  background-color: #111;
+  border: 2px solid #ffdab9;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.roster-wrapper h2 { margin:0; font-size: 2em; }
+.roster-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.roster-links a { color:#ffdab9; text-decoration:none; cursor:pointer; font-weight:bold; }
+.member-panel {
+  padding:10px; background-color:#222; border-radius:8px; min-height:50px; width:100%;
 }
 
 /* --- Animations --- */
 @keyframes glowPulse {
-  0%,100% { filter: drop-shadow(0 0 1px white) drop-shadow(0 0 2px white); text-shadow: 0 0 1px white, 0 0 2px white; }
-  50% { filter: drop-shadow(0 0 2px white) drop-shadow(0 0 4px white); text-shadow: 0 0 2px white, 0 0 4px white; }
-}
-@keyframes glowPulseTab {
-  0%,100% { box-shadow: 0 0 8px #ffdab9; }
-  50% { box-shadow: 0 0 20px #ffdab9; }
-}
-#sidebar {
-  animation: glowPulseTab 2s infinite;
+  0%,100% { filter: drop-shadow(0 0 2px #ffdab9) drop-shadow(0 0 4px #ffdab9); }
+  50% { filter: drop-shadow(0 0 4px #ffdab9) drop-shadow(0 0 8px #ffdab9); }
 }
 </style>
 </head>
 <body>
 
 <!-- Click to Enter Overlay -->
-<div id="enterOverlay">
-  <h1>Zone 15</h1>
-  <p>Click Anywhere to Enter</p>
-</div>
-
-<!-- Main content -->
-<div class="main-section">
-  <img src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif" alt="Anime Girl">
-  <h1 class="header" onclick="window.location.href='https://1800ae.xyz/Work.html'">Zone 15</h1>
-  <div class="description-box">Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK ( Otherwise known as Anon) for no purpose other then to have fun, Now it serves as a Anti-Extortion Hub with YTK retired Hanako is now the only founder who remains.</div>
-</div>
+<div id="enter-overlay" onclick="enterSite()">Click to Enter</div>
 
 <!-- Sidebar -->
 <div id="sidebar">
-  <a href="/Roster">Roster</a>
-  <a href="/History">History</a>
-  <a href="/Projects">Projects</a>
-  <a href="/Socials">Socials</a>
+  <a href="#" onclick="openTab('home')">Home</a>
+  <a href="#" onclick="openTab('roster')">Roster</a>
+  <a href="#" onclick="openTab('history')">History</a>
+  <a href="#" onclick="openTab('socials')">Socials</a>
 </div>
 
-<audio id="bg-music" loop preload="auto">
-  <source src="music/song7.mp3" type="audio/mpeg">
-</audio>
+<div class="main-content">
+
+  <!-- HOME -->
+  <div class="tab active" id="home">
+    <div class="main-section">
+      <img src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif" alt="Anime Girl">
+      <h1 class="header">Zone 15</h1>
+      <div class="description-box">
+        Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK (Anon) for fun. Now it serves as an Anti-Extortion Hub with Hanako remaining as founder.
+      </div>
+    </div>
+  </div>
+
+  <!-- ROSTER -->
+  <div class="tab" id="roster">
+    <div class="roster-wrapper">
+      <!-- Top display: PFP, Name, Role -->
+      <div id="roster-display" style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <img id="roster-pfp" src="" alt="" style="max-width:100px; border-radius:50%; display:none; box-shadow:0 0 5px #ffdab9;">
+        <h2 id="roster-name">Roster</h2>
+        <p id="roster-role" style="font-style:italic; margin:0;"></p>
+      </div>
+
+      <!-- Member links -->
+      <div class="roster-links" id="roster-links">
+        <!-- Links are generated dynamically -->
+      </div>
+
+      <!-- Member panel -->
+      <div id="member-info" class="member-panel">Click a name to see info here.</div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="tab" id="history">
+    <div class="roster-wrapper">
+      <h2>History</h2>
+      <p>Coming soon...</p>
+    </div>
+  </div>
+
+  <!-- SOCIALS -->
+  <div class="tab" id="socials">
+    <div class="roster-wrapper">
+      <h2>Socials</h2>
+      <p>Telegram: <a href="#" class="highlight">Coming soon...</a></p>
+      <p>Discord: https://discord.gg/E5PPckcMHZ</p>
+    </div>
+  </div>
+
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('enterOverlay');
-  const mainSection = document.querySelector('.main-section');
-  const audio = document.getElementById('bg-music');
 
-  overlay.addEventListener('click', () => {
-    overlay.style.opacity = 0;
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      mainSection.style.display = 'flex';
-      setTimeout(() => mainSection.style.opacity = 1, 50);
-    }, 1000);
+  // --- Tabs ---
+  function openTab(tabId) {
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+  window.openTab = openTab; // make globally accessible for inline onclick
 
-    audio.volume = 0;
-    audio.currentTime = 0;
-    audio.play().catch(err => console.log("Playback blocked:", err));
+  // --- Click to Enter ---
+  function enterSite() {
+    document.getElementById('enter-overlay').style.display='none';
+  }
+  window.enterSite = enterSite;
 
-    let vol = 0;
-    const fadeIn = setInterval(() => {
-      if(vol < 1){
-        vol = Math.min(vol + 0.02, 1);
-        audio.volume = vol;
-      } else {
-        clearInterval(fadeIn);
-      }
-    }, 50);
+  // --- Members ---
+  const members = {
+    "Hanako": {name:"Hanako", role:"Founder", desc:"Founder & Leader of Zone 15. Expert in anti-extortion.", pfp:"https://i.pinimg.com/736x/06/a6/dd/06a6ddffd798ebcadd36974d420f69f3.jpg"},
+    "Primer": {name:"Primer", role:"Owner", desc:"Member of Zone 15. Skilled strategist.", pfp:"https://i.pinimg.com/736x/1f/08/55/1f08555cb30ba0066d8d0dc2599df021.jpg"},
+    "Prxn": {name:"Prxn", role:"Owner", desc:"Member of Zone 15. New Gen owner of Zone15.", pfp:"https://i.pinimg.com/1200x/c4/b5/34/c4b53451408f597b95d02c6587a604ae.jpg"},
+    "Juice": {name:"Jacob", role:"Council", desc:"Member of Zone 15. One of the best swxtters in history.", pfp:"https://i.pinimg.com/736x/1e/60/47/1e60474e0d2fccf8654b940132d9b704.jpg"},
+    "Cloaker": {name:"Cloaker", role:"Member", desc:"Member of Zone 15. He Cloaks himself in the shroud of darkness.", pfp:"https://i.pinimg.com/736x/d1/51/94/d151942255f376a729cb3ee737c048af.jpg"},
+    "Purps": {name:"Purps", role:"Co Owner", desc:"Member of Zone 15. Owner of 363, and static gang.", pfp:"https://i.pinimg.com/736x/4b/36/93/4b3693a25127a13a733c483d1ac64ca4.jpg"},
+    "Suicide": {name:"Suicide", role:"Member", desc:"Member of Zone 15. Logistics and coordination.", pfp:"https://i.pinimg.com/736x/fe/b2/6e/feb26e367066208f5a3d1dd85f24aad1.jpg"}
+  };
+
+  // --- Show a member ---
+  function showMember(name){
+    const displayName = document.getElementById('roster-name');
+    const displayRole = document.getElementById('roster-role');
+    const displayPfp = document.getElementById('roster-pfp');
+    const panel = document.getElementById('member-info');
+
+    if(members[name]){
+      displayName.textContent = members[name].name;
+      displayRole.textContent = members[name].role;
+      displayPfp.src = members[name].pfp;
+      displayPfp.style.display = 'block';
+      panel.textContent = members[name].desc;
+    }
+  }
+  window.showMember = showMember; // make globally accessible
+
+  // --- Reset roster display ---
+  function resetRoster(){
+    const displayName = document.getElementById('roster-name');
+    const displayRole = document.getElementById('roster-role');
+    const displayPfp = document.getElementById('roster-pfp');
+    const panel = document.getElementById('member-info');
+
+    displayName.textContent = "Roster";
+    displayRole.textContent = "";
+    displayPfp.style.display = 'none';
+    panel.textContent = "Click a name to see info here.";
+  }
+
+  // --- Generate roster links dynamically ---
+  const rosterLinksContainer = document.getElementById('roster-links');
+  Object.keys(members).forEach((key, i, arr) => {
+    const a = document.createElement('a');
+    a.textContent = members[key].name;
+    a.style.cursor = 'pointer';
+    a.onclick = (e) => { 
+      e.stopPropagation(); // Prevent resetting when clicking link
+      showMember(key); 
+    };
+    rosterLinksContainer.appendChild(a);
+
+    if(i < arr.length-1){
+      const sep = document.createTextNode(" • ");
+      rosterLinksContainer.appendChild(sep);
+    }
   });
 
-  const titles = ["Z","Zo","Zon","Zone","Zone1","Zone15"];
-  let currentTitleIndex = 0;
-  setInterval(() => {
-    document.title = titles[currentTitleIndex];
-    currentTitleIndex = (currentTitleIndex + 1) % titles.length;
-  }, 200);
+  // --- Reset roster if click anywhere outside roster-links or roster-display ---
+  document.addEventListener('click', (e) => {
+    const rosterSection = document.getElementById('roster');
+    if(rosterSection.classList.contains('active') && !e.target.closest('.roster-links') && !e.target.closest('#roster-display')){
+      resetRoster();
+    }
+  });
+
 });
 </script>
+
 </body>
 </html>
