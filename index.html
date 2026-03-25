@@ -2,280 +2,100 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zone 15 (Z15)</title>
+<title>Zone15 | Being more productive with our future.</title>
 <style>
-/* --- General Body --- */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: black;
-  color: #ffdab9;
-  overflow: hidden;
-  display: flex;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #0000AA; /* classic blue screen */
+        color: #FFFFFF;
+        font-family: "Lucida Console", Monaco, monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
 
-/* --- Sidebar --- */
-#sidebar {
-  width: 50px;
-  background-color: #111;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 0 0 8px #ffdab9;
-  transition: width 0.3s ease;
-  z-index: 2;
-}
-#sidebar:hover { width: 180px; }
-#sidebar a {
-  color: #ffdab9;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px;
-  width: 100%;
-  text-align: left;
-  white-space: nowrap;
-  opacity: 0;
-  margin-bottom: 10px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#sidebar:hover a { opacity: 1; transform: translateX(10px); }
+    .container {
+        max-width: 900px;
+        padding: 20px;
+    }
 
-/* --- Main content area --- */
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  height: 100vh;
-  overflow-y: auto;
-  position: relative;
-}
+    .title {
+        margin-bottom: 20px;
+    }
 
-/* --- Tabs --- */
-.tab { display: none; }
-.tab.active { display: flex; flex-direction: column; align-items: center; }
+    .code {
+        margin: 20px 0;
+        font-weight: bold;
+    }
 
-/* --- Home --- */
-.main-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-.main-section img {
-  max-width: 200px;
-  filter: drop-shadow(0 0 2px #ffdab9) drop-shadow(0 0 4px #ffdab9);
-  animation: glowPulse 2s infinite;
-}
-.header { font-size: 3em; margin: 0; text-shadow: 0 0 2px #ffdab9, 0 0 4px #ffdab9; }
-.description-box {
-  padding: 15px 25px;
-  max-width: 400px;
-  width: auto;
-  background-color: #111;
-  border: 2px solid #ffdab9;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 15px #ffdab9;
-  min-height: 0;
-}
+    .highlight {
+        display: inline-block;
+        background: #FFFFFF;
+        color: #0000AA;
+        padding: 4px 6px;
+        margin: 15px 0;
+    }
 
-/* --- Click to Enter overlay --- */
-#enter-overlay {
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background-color: black;
-  display: flex; justify-content: center; align-items: center;
-  color: #ffdab9; font-size: 2em; cursor: pointer;
-  z-index: 10; flex-direction: column; text-align: center;
-  animation: fadeIn 1s ease;
-}
-@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    .technical {
+        margin-top: 30px;
+    }
 
-/* --- Roster --- */
-.roster-wrapper {
-  background-color: #111;
-  border: 2px solid #ffdab9;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-.roster-wrapper h2 { margin:0; font-size: 2em; }
-.roster-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-.roster-links a { color:#ffdab9; text-decoration:none; cursor:pointer; font-weight:bold; }
-.member-panel {
-  padding:10px; background-color:#222; border-radius:8px; min-height:50px; width:100%;
-}
+    .roster {
+    margin-top: 50px;
+    }
 
-/* --- Animations --- */
-@keyframes glowPulse {
-  0%,100% { filter: drop-shadow(0 0 2px #ffdab9) drop-shadow(0 0 4px #ffdab9); }
-  50% { filter: drop-shadow(0 0 4px #ffdab9) drop-shadow(0 0 8px #ffdab9); }
-}
+    .work {
+    margin-top: 50px;
+    }
+
+    .work a {
+    color: rgb(129, 142, 255);          
+    text-decoration: none; 
+    }
 </style>
 </head>
 <body>
+<div class="container">
 
-<!-- Click to Enter Overlay -->
-<div id="enter-overlay" onclick="enterSite()">Click to Enter</div>
+    <div class="title">
+        A problem has been detected and Zone15 has been transferred to the 404 page
+    </div>
 
-<!-- Sidebar -->
-<div id="sidebar">
-  <a href="#" onclick="openTab('home')">Home</a>
-  <a href="#" onclick="openTab('roster')">Roster</a>
-  <a href="#" onclick="openTab('history')">History</a>
-  <a href="#" onclick="openTab('socials')">Socials</a>
+    <div class="code">
+        ZONE15_SWITCHING_FLOWS_404
+    </div>
+
+    <div>
+If you're reading this, Zone15 has officially  switched to a public Minecraft community.
+
+Zone15 has not disbanded, we only changed our future to a more sustainable and less hurtful community .
+
+Were, working on transitioning into more productive things with our time, but we will still work with the Anti-Extortion community but we will not be pursuing any singular project.
+
+<div class="roster">
+    Zone15's Final Owner's & Co Owners : Hanako, Prxn, Primer, SuicideHotline, Purps
 </div>
 
-<div class="main-content">
 
-  <!-- HOME -->
-  <div class="tab active" id="home">
-    <div class="main-section">
-      <img src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif" alt="Anime Girl">
-      <h1 class="header">Zone 15</h1>
-      <div class="description-box">
-        Zone 15, otherwise known as Z15 is owned by Hanako, Prxn, Purps, and Primer. It is anti-extortion and anti-pedophile, we only use "Legal" ways to obtain information on a extortionist or a pedophile.
-      </div>
     </div>
-  </div>
 
-  <!-- ROSTER -->
-  <div class="tab" id="roster">
-    <div class="roster-wrapper">
-      <!-- Top display: PFP, Name, Role -->
-      <div id="roster-display" style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-        <img id="roster-pfp" src="" alt="" style="max-width:100px; border-radius:50%; display:none; box-shadow:0 0 5px #ffdab9;">
-        <h2 id="roster-name">Roster</h2>
-        <p id="roster-role" style="font-style:italic; margin:0;"></p>
-      </div>
-
-      <!-- Member links -->
-      <div class="roster-links" id="roster-links">
-        <!-- Links are generated dynamically -->
-      </div>
-
-      <!-- Member panel -->
-      <div id="member-info" class="member-panel">Click a name to see info here.</div>
+    <div class="highlight">
+        Never again. &lt;3  Formaly - Hanako, Prxn.
     </div>
-  </div>
 
-  <!-- HISTORY -->
-  <div class="tab" id="history">
-    <div class="roster-wrapper">
-      <h2>History</h2>
-      <p> Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK (Anon) for fun. Now it serves as an Anti-Extortion Hub with Hanako remaining as founder.</p>
+    <div class="technical">
+        <div>Technical Information:</div>
+        <br>
+        *** STOP: 0x000000ED (0x80F128D0, exc000009c, exe0000000, 0x00000000)
     </div>
-  </div>
-
-  <!-- SOCIALS -->
-  <div class="tab" id="socials">
-    <div class="roster-wrapper">
-      <h2>Socials</h2>
-      <p>Doxbin: <a href="#" class="highlight">https://doxbin.com/user/Zone15</a></p>
-      <p>Discord: <a href="#" class="highlight">https://discord.gg/E5PPckcMHZ</a></p>
-    </div>
-  </div>
 
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  // --- Tabs ---
-  function openTab(tabId) {
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-  }
-  window.openTab = openTab; // make globally accessible for inline onclick
-
-  // --- Click to Enter ---
-  function enterSite() {
-    document.getElementById('enter-overlay').style.display='none';
-  }
-  window.enterSite = enterSite;
-
-  // --- Members ---
-  const members = {
-    "Hanako": {name:"Hanako", role:"Founder", desc:"Founder & Leader of Zone 15. Expert in anti-extortion.", pfp:"https://i.pinimg.com/736x/06/a6/dd/06a6ddffd798ebcadd36974d420f69f3.jpg"},
-    "Primer": {name:"Primer", role:"Co Owner", desc:"Primer helps operate the group and helps organize the next target.", pfp:"https://i.pinimg.com/736x/1f/08/55/1f08555cb30ba0066d8d0dc2599df021.jpg"},
-    "Prxn": {name:"Prxn", role:"Owner", desc:"New Gen owner of Zone15.", pfp:"https://i.pinimg.com/1200x/c4/b5/34/c4b53451408f597b95d02c6587a604ae.jpg"},
-    "Juice": {name:"Jacob", role:"Council", desc:"One of the best swxtters in history.", pfp:"https://i.pinimg.com/736x/1e/60/47/1e60474e0d2fccf8654b940132d9b704.jpg"},
-    "Cloaker": {name:"Cloaker", role:"Member", desc:"He Cloaks himself in the shroud of darkness.", pfp:"https://i.pinimg.com/736x/d1/51/94/d151942255f376a729cb3ee737c048af.jpg"},
-    "Purps": {name:"Purps", role:"Co Owner", desc:"Owner of 363, and static gang.", pfp:"https://i.pinimg.com/736x/4b/36/93/4b3693a25127a13a733c483d1ac64ca4.jpg"},
-    "Suicide": {name:"Suicide", role:"Member", desc:"He maintains and does osint for a living.", pfp:"https://i.pinimg.com/736x/fe/b2/6e/feb26e367066208f5a3d1dd85f24aad1.jpg"}
-  };
-
-  // --- Show a member ---
-  function showMember(name){
-    const displayName = document.getElementById('roster-name');
-    const displayRole = document.getElementById('roster-role');
-    const displayPfp = document.getElementById('roster-pfp');
-    const panel = document.getElementById('member-info');
-
-    if(members[name]){
-      displayName.textContent = members[name].name;
-      displayRole.textContent = members[name].role;
-      displayPfp.src = members[name].pfp;
-      displayPfp.style.display = 'block';
-      panel.textContent = members[name].desc;
-    }
-  }
-  window.showMember = showMember; // make globally accessible
-
-  // --- Reset roster display ---
-  function resetRoster(){
-    const displayName = document.getElementById('roster-name');
-    const displayRole = document.getElementById('roster-role');
-    const displayPfp = document.getElementById('roster-pfp');
-    const panel = document.getElementById('member-info');
-
-    displayName.textContent = "Roster";
-    displayRole.textContent = "";
-    displayPfp.style.display = 'none';
-    panel.textContent = "Click a name to see info here.";
-  }
-
-  // --- Generate roster links dynamically ---
-  const rosterLinksContainer = document.getElementById('roster-links');
-  Object.keys(members).forEach((key, i, arr) => {
-    const a = document.createElement('a');
-    a.textContent = members[key].name;
-    a.style.cursor = 'pointer';
-    a.onclick = (e) => { 
-      e.stopPropagation(); // Prevent resetting when clicking link
-      showMember(key); 
-    };
-    rosterLinksContainer.appendChild(a);
-
-    if(i < arr.length-1){
-      const sep = document.createTextNode(" • ");
-      rosterLinksContainer.appendChild(sep);
-    }
-  });
-
-  // --- Reset roster if click anywhere outside roster-links or roster-display ---
-  document.addEventListener('click', (e) => {
-    const rosterSection = document.getElementById('roster');
-    if(rosterSection.classList.contains('active') && !e.target.closest('.roster-links') && !e.target.closest('#roster-display')){
-      resetRoster();
-    }
-  });
-
-});
-</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"5ad59cc82ab64422a1aec460690e9ec9","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
 
 </body>
 </html>
