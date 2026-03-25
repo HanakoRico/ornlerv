@@ -2,98 +2,317 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Zone15 | Being more productive with our future.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Menu Clone</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #0000AA; /* classic blue screen */
-        color: #FFFFFF;
-        font-family: "Lucida Console", Monaco, monospace;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-    }
+body {
+  margin: 0;
+  font-family: 'Arial Black', Arial, sans-serif;
+  overflow: hidden;
+}
 
-    .container {
-        max-width: 900px;
-        padding: 20px;
-    }
+/* MAIN MENU */
+#menu {
+  position: fixed;
+  inset: 0;
+  background: url('https://imgs.search.brave.com/Hqk91guA_6Zq0w8PFZ5Pi4SXyIE6sROQgAo-M_tU0gw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdHls/ZXMucmVkZGl0bWVk/aWEuY29tL3Q1XzJz/M29vL3N0eWxlcy9i/YW5uZXJCYWNrZ3Jv/dW5kSW1hZ2VfNThy/cnRuYjVsOXNlMS5w/bmc') no-repeat center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+#menu::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+}
+#title-wrap {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+}
+#title-inner {
+  position: relative;
+  display: inline-block;
+}
+#title {
+  font-size: 72px;
+  letter-spacing: 4px;
+  text-shadow: 6px 6px 0 black, 2px 2px 0 #555;
+}
+#splash {
+  position: absolute;
+  right: -130px;
+  top: 28px;
+  color: yellow;
+  font-size: 24px;
+  transform: rotate(-20deg);
+  animation: splashAnim 1.5s infinite alternate;
+}
+@keyframes splashAnim {
+  from { transform: rotate(-20deg) scale(1); }
+  to { transform: rotate(-20deg) scale(1.1); }
+}
+#buttons {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-70px);
+}
+.row { display: flex; gap: 20px; }
+.menu-btn {
+  width: 200px;
+  height: 50px;
+  background: #6b6b6b;
+  border: 3px solid #2a2a2a;
+  box-shadow: inset -3px -3px 0 #2a2a2a, inset 3px 3px 0 #9b9b9b;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-btn:hover { background: #8a8a8a; }
+.wide { width: 420px; }
+#footer { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 14px; opacity: 0.7; z-index: 2; }
 
-    .title {
-        margin-bottom: 20px;
-    }
+/* WORLD MENU */
+#worldMenu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #111;
+  color: white;
+  z-index: 15;
+  padding: 20px;
+  overflow-y: auto;
+}
+.world {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  margin: 10px 0;
+  background: #333;
+  cursor: pointer;
+}
+.world:hover { background: #555; }
+.world img { width: 60px; height: 60px; object-fit: cover; border: 2px solid #000; }
 
-    .code {
-        margin: 20px 0;
-        font-weight: bold;
-    }
+/* PROFILE PAGE */
+#profile {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: white;
+  z-index: 25;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#profile img { width: 120px; height: 120px; border-radius: 10px; margin-bottom: 10px; }
 
-    .highlight {
-        display: inline-block;
-        background: #FFFFFF;
-        color: #0000AA;
-        padding: 4px 6px;
-        margin: 15px 0;
-    }
+/* LOADING SCREEN */
+#loading {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  z-index: 30;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#progressContainer {
+  width: 400px;
+  height: 20px;
+  border: 2px solid white;
+  margin-top: 20px;
+}
+#progressBar {
+  width: 0;
+  height: 100%;
+  background: lime;
+}
 
-    .technical {
-        margin-top: 30px;
-    }
-
-    .roster {
-    margin-top: 50px;
-    }
-
-    .work {
-    margin-top: 50px;
-    }
-
-    .work a {
-    color: rgb(129, 142, 255);          
-    text-decoration: none; 
-    }
+/* SETTINGS */
+#settingsModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+#settingsBox {
+  background: #2b2b2b;
+  padding: 20px;
+  border: 3px solid #111;
+  color: white;
+  width: 300px;
+  text-align: center;
+}
+input { width: 100%; margin: 10px 0; }
+.close { margin-top: 10px; background: #6b6b6b; padding: 10px; cursor: pointer; }
 </style>
 </head>
 <body>
-<div class="container">
 
-    <div class="title">
-        A problem has been detected and Zone15 has been transferred to the 404 page
+<!-- MAIN MENU -->
+<div id="menu">
+  <div id="title-wrap">
+    <div id="title-inner">
+      <div id="title">Zone15</div>
+      <div id="splash">Now only on Minecraft!</div>
     </div>
-
-    <div class="code">
-        ZONE15_SWITCHING_FLOWS_404
+  </div>
+  <div id="buttons">
+    <div class="row">
+      <div class="menu-btn" id="play">Play</div>
+      <div class="menu-btn" id="quit">Quit</div>
     </div>
-
-    <div>
-If you're reading this, Zone15 has officially  switched to a public Minecraft community.
-
-Zone15 has not disbanded, we only changed our future to a more sustainable and less hurtful community .
-
-Were, working on transitioning into more productive things with our time, but we will still work with the Anti-Extortion community but we will not be pursuing any singular project.
-
-<div class="roster">
-    Zone15's Final Owner's & Co Owners : Hanako, Prxn, Primer, SuicideHotline, Purps
+    <div class="menu-btn wide" id="settings">Settings & Options</div>
+  </div>
+  <div id="footer">Minecraft Menu Clone</div>
 </div>
 
-
-    </div>
-
-    <div class="highlight">
-        Never again. &lt;3  Formaly - Hanako, Prxn.
-    </div>
-
-    <div class="technical">
-        <div>Technical Information:</div>
-        <br>
-        *** STOP: 0x000000ED (0x80F128D0, exc000009c, exe0000000, 0x00000000)
-    </div>
-
+<!-- WORLD MENU -->
+<div id="worldMenu">
+  <h2>Select Member</h2>
+  <div id="worldList"></div>
+  <div class="menu-btn" onclick="backToMenu()">Back</div>
 </div>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"5ad59cc82ab64422a1aec460690e9ec9","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <h2 id="loadingText">Loading user...</h2>
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+  <div id="pfpLoadingContainer" style="margin-top:20px; width:120px; height:120px; border:2px solid white;">
+    <canvas id="pfpCanvas" width="120" height="120"></canvas>
+  </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div id="profile">
+  <img id="pfp" src="">
+  <h2 id="name"></h2>
+  <p id="bio"></p>
+  <div class="menu-btn" onclick="backToWorlds()">Back</div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settingsModal">
+  <div id="settingsBox">
+    <h3>Settings</h3>
+    <label>Width</label>
+    <input type="range" id="widthRange" min="300" max="1920" value="1000">
+    <label>Height</label>
+    <input type="range" id="heightRange" min="300" max="1080" value="700">
+    <label>Volume</label>
+    <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.5">
+    <div class="close" id="closeSettings">Close</div>
+  </div>
+</div>
+
+<script>
+const worlds=[
+  {name:"Hanako",desc:"Founder",img:"https://i.pinimg.com/474x/03/da/f4/03daf470525f376f0a797e687bcd8def.jpg",bio:"Founder of Zone15"},
+  {name:"Prxn",desc:"Owner",img:"https://files.catbox.moe/a2wpy3.webp",bio:"Owner of Zone15"},
+  {name:"Suicide Hotline",desc:"Co Owner",img:"https://i.pinimg.com/1200x/7d/f4/4a/7df44a4e2cd341398ca427bfc74f1cfa.jpg",bio:"Co Owner"},
+  {name:"Primer",desc:"Co Owner",img:"https://i.pinimg.com/736x/3b/a2/4e/3ba24e404f5f3454c7da6d9bc8ebff90.jpg",bio:"Co Owner"},
+  {name:"Purps",desc:"Co Owner",img:"https://i.pinimg.com/1200x/0a/f9/9f/0af99fe3a5fc6713ef5a75b42a4eacba.jpg",bio:"Co Owner"}
+];
+
+const play=document.getElementById('play');
+const quit=document.getElementById('quit');
+const settings=document.getElementById('settings');
+const closeSettings=document.getElementById('closeSettings');
+const widthRange=document.getElementById('widthRange');
+const heightRange=document.getElementById('heightRange');
+const volumeRange=document.getElementById('volumeRange');
+
+const menu=document.getElementById('menu');
+const worldMenu=document.getElementById('worldMenu');
+const worldList=document.getElementById('worldList');
+const profile=document.getElementById('profile');
+
+const loading=document.getElementById('loading');
+const progressBar=document.getElementById('progressBar');
+const loadingText=document.getElementById('loadingText');
+const pfpCanvas=document.getElementById('pfpCanvas');
+const pfpCtx=pfpCanvas.getContext('2d');
+
+const pfp=document.getElementById('pfp');
+const nameEl=document.getElementById('name');
+const bioEl=document.getElementById('bio');
+
+// Populate worlds
+worldList.innerHTML='';
+worlds.forEach(w=>{
+  const div=document.createElement('div');
+  div.className='world';
+  div.innerHTML=`<img src="${w.img}"><div><b>${w.name}</b><br>${w.desc}</div>`;
+  div.onclick=()=>startLoading(w);
+  worldList.appendChild(div);
+});
+
+function startLoading(world){
+  worldMenu.style.display='none';
+  loading.style.display='flex';
+  progressBar.style.width='0%';
+  loadingText.innerText='Loading '+world.name+'...';
+  pfpCtx.fillStyle='black';
+  pfpCtx.fillRect(0,0,120,120);
+
+  let progress=0;
+  const img=new Image();
+  img.src=world.img;
+
+  const interval=setInterval(()=>{
+    progress++;
+    progressBar.style.width=progress+'%';
+    // build PFP gradually
+    pfpCtx.clearRect(0,0,120,120);
+    pfpCtx.fillStyle='black';
+    pfpCtx.fillRect(0,0,120,120);
+    const clipHeight=Math.floor(progress/100*120);
+    pfpCtx.drawImage(img,0,120-clipHeight,120,clipHeight,0,120-clipHeight,120,clipHeight);
+
+    if(progress>=100){
+      clearInterval(interval);
+      loading.style.display='none';
+      profile.style.display='flex';
+      pfp.src=world.img;
+      nameEl.innerText=world.name;
+      bioEl.innerText=world.bio;
+    }
+  },50);
+}
+
+// Button handlers
+play.onclick=()=>{ menu.style.display='none'; worldMenu.style.display='block'; };
+quit.onclick=()=>{ window.close(); alert('Close tab manually'); };
+settings.onclick=()=>{ settingsModal.style.display='flex'; };
+closeSettings.onclick=()=>{ settingsModal.style.display='none'; };
+widthRange.oninput=()=>{ worldMenu.style.width=widthRange.value+'px'; };
+heightRange.oninput=()=>{ worldMenu.style.height=heightRange.value+'px'; };
+
+function backToMenu(){ worldMenu.style.display='none'; menu.style.display='flex'; }
+function backToWorlds(){ profile.style.display='none'; worldMenu.style.display='block'; }
+</script>
+
 </body>
 </html>
 
