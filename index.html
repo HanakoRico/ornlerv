@@ -155,19 +155,26 @@ body {
   z-index:999;
 }
 
-/* MUSIC */
+/* MUSIC (ONLY MODIFIED SECTION) */
 #player{display:none;}
 
 #music{
   position:fixed;
   bottom:10px;
   left:70px;
-  background:#111;
+  background:linear-gradient(145deg, #000, #111);
   border:1px solid #ffdab9;
   padding:10px;
   border-radius:10px;
   width:280px;
-  box-shadow:0 0 10px #ffdab9;
+  box-shadow:0 0 15px #ffdab9;
+}
+
+#songTitle{
+  text-align:center;
+  font-size:12px;
+  margin-bottom:6px;
+  color:#ffdab9;
 }
 
 #controls{
@@ -183,16 +190,23 @@ body {
   cursor:pointer;
 }
 
-#seek{
-  width:100%;
+#controls button:hover{
+  background:#ffdab9;
+  color:black;
+  box-shadow:0 0 8px #ffdab9;
 }
 
-/* NEW: song title */
-#songTitle{
+#seek{
+  width:100%;
+  accent-color:#ffdab9;
+}
+
+#time{
   text-align:center;
   font-size:12px;
-  margin-bottom:6px;
+  margin-top:5px;
 }
+
 </style>
 </head>
 
@@ -209,7 +223,6 @@ body {
 
 <div class="main-content">
 
-<!-- HOME -->
 <div class="tab active" id="home">
   <div class="main-section">
     <img src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
@@ -225,10 +238,8 @@ body {
   </div>
 </div>
 
-<!-- ROSTER -->
 <div class="tab" id="roster">
   <div class="roster-wrapper">
-
     <div id="roster-display">
       <img id="roster-pfp">
       <h2 id="roster-name">Select a Member</h2>
@@ -240,11 +251,9 @@ body {
     <div class="member-panel" id="member-info">
       Click a name to see info
     </div>
-
   </div>
 </div>
 
-<!-- HISTORY -->
 <div class="tab" id="history">
   <div class="roster-wrapper">
     <h2>History</h2>
@@ -252,7 +261,6 @@ body {
   </div>
 </div>
 
-<!-- SOCIALS -->
 <div class="tab" id="socials">
   <div class="roster-wrapper">
     <h2>Socials</h2>
@@ -265,7 +273,6 @@ body {
 
 <div id="player"></div>
 
-<!-- MUSIC -->
 <div id="music">
 
   <div id="songTitle">Loading...</div>
@@ -298,7 +305,6 @@ function id(u){
   return u.split("v=")[1]?.split("&")[0];
 }
 
-/* ENTER */
 function enterSite(){
   document.getElementById("enter").style.display="none";
 
@@ -319,7 +325,6 @@ function enterSite(){
   }
 }
 
-/* YT */
 function onYouTubeIframeAPIReady(){
   player = new YT.Player('player',{
     videoId:id(playlist[index].url),
@@ -333,7 +338,6 @@ function onYouTubeIframeAPIReady(){
   });
 }
 
-/* MUSIC */
 function toggle(){
   if(!player) return;
   if(player.getPlayerState()==1) player.pauseVideo();
@@ -351,7 +355,6 @@ function prev(){index=(index-1+playlist.length)%playlist.length;load();}
 function shuffle(){index=Math.floor(Math.random()*playlist.length);load();}
 function mute(){if(player) player.isMuted()?player.unMute():player.mute();}
 
-/* SEEK */
 setInterval(()=>{
   if(player && player.getDuration){
     let c=player.getCurrentTime();
@@ -364,13 +367,12 @@ setInterval(()=>{
   }
 },300);
 
-/* TABS */
 function openTab(id){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-/* ROSTER — WITH YOUR BIOS */
+/* ROSTER */
 const members = {
   "Hanako": {
     name: "Hanako",
