@@ -206,7 +206,6 @@ body {
   font-size:12px;
   margin-top:5px;
 }
-
 </style>
 </head>
 
@@ -275,7 +274,6 @@ body {
 <div id="player"></div>
 
 <div id="music">
-
   <div id="songTitle">Loading...</div>
 
   <div id="controls">
@@ -288,7 +286,6 @@ body {
 
   <input id="seek" type="range" min="0" max="100" value="0">
   <div id="time">0:00 / 0:00</div>
-
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -373,7 +370,7 @@ function openTab(id){
   document.getElementById(id).classList.add("active");
 }
 
-/* ROSTER */
+/* ROSTER FIXED */
 const members = {
   "Hanako": {
     name: "Hanako",
@@ -387,7 +384,7 @@ const members = {
     role: "Owner",
     desc: "thug it out 5, Osint and Csint expert",
     pfp: "https://i.pinimg.com/736x/1e/60/47/1e60474e0d2fccf8654b940132d9b704.jpg"
-  },
+  }
 };
 
 function showMember(k){
