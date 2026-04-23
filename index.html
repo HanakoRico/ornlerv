@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -97,14 +97,6 @@ body {
   text-align:center;
 }
 
-#roster-display{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-}
-
 #roster-pfp{
   width:120px;
   height:120px;
@@ -142,76 +134,63 @@ body {
   text-align:center;
 }
 
-/* ENTER SCREEN */
+/* BOOT SCREEN */
 #enter{
   position:fixed;
   inset:0;
   background:black;
+  color:#ffdab9;
+  font-family:monospace;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:2em;
+  justify-content:flex-start;
+  align-items:flex-start;
+  padding:20px;
+  font-size:14px;
   cursor:pointer;
   z-index:999;
+  overflow:hidden;
 }
 
-/* MUSIC */
-#player{display:none;}
-
-#music{
-  position:fixed;
-  bottom:10px;
-  left:70px;
-  background:linear-gradient(145deg, #000, #111);
-  border:1px solid #ffdab9;
-  padding:10px;
-  border-radius:10px;
-  width:280px;
-  box-shadow:0 0 15px #ffdab9;
+#bootLogo{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:220px;
+  height:auto;
+  opacity:0.95;
+  pointer-events:none;
+  filter:drop-shadow(0 0 15px #ffdab9);
 }
 
-#songTitle{
-  text-align:center;
-  font-size:12px;
-  margin-bottom:6px;
-  color:#ffdab9;
+#bootText{
+  white-space:pre-line;
+  line-height:1.4;
+  z-index:2;
 }
 
-#controls{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:5px;
-}
-
-#controls button{
-  background:black;
-  color:#ffdab9;
-  border:1px solid #ffdab9;
-  cursor:pointer;
-}
-
-#controls button:hover{
+.cursor{
+  display:inline-block;
+  width:10px;
   background:#ffdab9;
-  color:black;
-  box-shadow:0 0 8px #ffdab9;
+  margin-left:5px;
+  animation:blink 1s infinite;
 }
 
-#seek{
-  width:100%;
-  accent-color:#ffdab9;
-}
-
-#time{
-  text-align:center;
-  font-size:12px;
-  margin-top:5px;
+@keyframes blink{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div id="enter" onclick="enterSite()">CLICK TO ENTER</div>
+<div id="enter" onclick="handleBootClick()">
+  <img id="bootLogo" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
+  <div id="bootText"></div>
+  <span class="cursor"></span>
+</div>
 
 <div id="sidebar">
   <a onclick="openTab('home')">Home</a>
@@ -263,156 +242,119 @@ body {
 <div class="tab" id="socials">
   <div class="roster-wrapper">
     <h2>Socials</h2>
-    <p>Telegram: <a href="#" class="highlight">https://t.me/Z15AE</a></p>
-    <p>Discord: <a href="#" class="highlight">https://discord.gg/E5PPckcMHZ</a></p>
-    <p>Doxbin: <a href="#" class="highlight">https://doxbin.com/Z15</a></p>
+    <p>Telegram: https://t.me/Z15AE</p>
+    <p>Discord: https://discord.gg/E5PPckcMHZ</p>
+    <p>Doxbin: https://doxbin.com/Z15</p>
   </div>
 </div>
 
 </div>
-
-<div id="player"></div>
-
-<div id="music">
-  <div id="songTitle">Loading...</div>
-
-  <div id="controls">
-    <button onclick="shuffle()">🔀</button>
-    <button onclick="prev()">⏮</button>
-    <button onclick="toggle()">⏯</button>
-    <button onclick="next()">⏭</button>
-    <button onclick="mute()">🔇</button>
-  </div>
-
-  <input id="seek" type="range" min="0" max="100" value="0">
-  <div id="time">0:00 / 0:00</div>
-</div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-let player;
-let index = 0;
-let started = false;
 
-const playlist = [
-  {url:"https://www.youtube.com/watch?v=N7oe91LoHL0", name:"I - Lil Skies"},
+const bootLines = [
+"[    0.000000] Initializing Zone15 Kernel...",
+"[    0.102341] Loading modules...",
+"[    0.245123] Mounting file systems...",
+"[    0.412532] Starting network manager...",
+"[    0.598234] Establishing secure connection...",
+"[    0.884123] Loading user interface...",
+"[    1.102938] Injecting OSINT modules...",
+"[    1.402193] Checking permissions... OK",
+"[    1.883221] Starting services...",
+"[    2.104923] Anti-Extortion Shield: ACTIVE",
+"[    2.445123] Monitoring channels...",
+"[    2.998321] Finalizing boot sequence...",
+"[    3.000000] Welcome to Zone15...",
+"",
+"Zone15 login system initialized."
 ];
 
-function id(u){
-  return u.split("v=")[1]?.split("&")[0];
-}
+let line=0,char=0,typing=true,finished=false;
 
-function enterSite(){
-  document.getElementById("enter").style.display="none";
+function typeBoot(){
+  const t=document.getElementById("bootText");
+  if(!t || !typing) return;
 
-  if(!started){
-    started=true;
+  if(line>=bootLines.length){
+    finished=true;
+    return;
+  }
 
-    if(player){
-      player.playVideo();
-      player.setVolume(0);
+  const current=bootLines[line];
 
-      let v=0;
-      let fade=setInterval(()=>{
-        v+=2;
-        player.setVolume(v);
-        if(v>=60) clearInterval(fade);
-      },80);
-    }
+  if(char<current.length){
+    t.innerText+=current[char++];
+    setTimeout(typeBoot,18);
+  } else {
+    t.innerText+="\n";
+    line++; char=0;
+    setTimeout(typeBoot,120);
   }
 }
 
-function onYouTubeIframeAPIReady(){
-  player = new YT.Player('player',{
-    videoId:id(playlist[index].url),
-    playerVars:{controls:0},
-    events:{
-      onReady:(e)=>{
-        e.target.pauseVideo();
-        document.getElementById("songTitle").innerText = playlist[index].name;
-      }
-    }
-  });
+/* ✅ FIXED: prevents stuck enter screen */
+function handleBootClick(){
+  const t=document.getElementById("bootText");
+
+  typing=false;
+  t.innerText=bootLines.join("\n");
+  finished=true;
+
+  setTimeout(()=>{
+    document.getElementById("enter").style.display="none";
+  },500);
 }
 
-function toggle(){
-  if(!player) return;
-  if(player.getPlayerState()==1) player.pauseVideo();
-  else player.playVideo();
-}
-
-function load(){
-  if(!player) return;
-  player.loadVideoById(id(playlist[index].url));
-  document.getElementById("songTitle").innerText = playlist[index].name;
-}
-
-function next(){index=(index+1)%playlist.length;load();}
-function prev(){index=(index-1+playlist.length)%playlist.length;load();}
-function shuffle(){index=Math.floor(Math.random()*playlist.length);load();}
-function mute(){if(player) player.isMuted()?player.unMute():player.mute();}
-
-setInterval(()=>{
-  if(player && player.getDuration){
-    let c=player.getCurrentTime();
-    let d=player.getDuration();
-
-    document.getElementById("seek").value=(c/d)*100||0;
-    document.getElementById("time").innerText=
-    Math.floor(c/60)+":"+("0"+Math.floor(c%60)).slice(-2)+" / "+
-    Math.floor(d/60)+":"+("0"+Math.floor(d%60)).slice(-2);
-  }
-},300);
+window.addEventListener("load",()=>{
+  document.getElementById("bootText").innerText="";
+  line=0; char=0;
+  typing=true; finished=false;
+  setTimeout(typeBoot,500);
+});
 
 function openTab(id){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-/* ROSTER FIXED */
-const members = {
-  "Hanako": {
-    name: "Hanako",
-    role: "Founder",
-    desc: "The tears of evil will only grow with time.",
-    pfp: "https://i.pinimg.com/736x/78/b0/46/78b046568c402dab00a396205846e200.jpg"
-  },
+window.addEventListener("load", () => {
+  const box=document.getElementById("roster-links");
 
-  "Nullify": {
-    name: "Nullify",
-    role: "Owner",
-    desc: "Exterminating evil one extorter at a time.",
-    pfp: "https://i.pinimg.com/736x/20/6e/14/206e14e8b1ddf0e75a2bab0ff25adb0c.jpg"
+  const members={
+    "Hanako":{
+      name:"Hanako",
+      role:"Founder",
+      desc:"The tears of evil will only grow with time.",
+      pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg"
+    },
+    "Nullify":{
+      name:"Nullify",
+      role:"Owner",
+      desc:"Exterminating evil one extorter at a time.",
+      pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"
+    }
+  };
+
+  function show(k){
+    document.getElementById("roster-name").innerText=members[k].name;
+    document.getElementById("roster-role").innerText=members[k].role;
+    document.getElementById("member-info").innerText=members[k].desc;
+
+    const img=document.getElementById("roster-pfp");
+    img.src=members[k].pfp;
+    img.style.display="block";
   }
-};
 
-function showMember(k){
-  const m = members[k];
+  Object.keys(members).forEach(k=>{
+    const a=document.createElement("a");
+    a.innerText=members[k].name;
+    a.onclick=()=>show(k);
+    box.appendChild(a);
+  });
 
-  document.getElementById("roster-name").innerText = m.name;
-  document.getElementById("roster-role").innerText = m.role;
-  document.getElementById("member-info").innerText = m.desc;
-
-  const img = document.getElementById("roster-pfp");
-  img.src = m.pfp;
-  img.style.display = "block";
-}
-
-const box = document.getElementById("roster-links");
-
-Object.keys(members).forEach((k,i)=>{
-  const a = document.createElement("a");
-  a.innerText = members[k].name;
-  a.onclick = () => showMember(k);
-  box.appendChild(a);
-
-  if(i < Object.keys(members).length-1){
-    const dot = document.createElement("span");
-    dot.innerText = " • ";
-    box.appendChild(dot);
-  }
 });
+
 </script>
 
 </body>
