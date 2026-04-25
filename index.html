@@ -40,7 +40,6 @@ body {
   box-shadow:0 0 8px #ffdab9;
 }
 #sidebar:hover{width:180px;}
-
 #sidebar a{
   color:#ffdab9;
   text-decoration:none;
@@ -89,13 +88,8 @@ body {
   align-items:center;
   gap:20px;
 }
-
-.main-section img{
-  max-width:200px;
-}
-
+.main-section img{ max-width:200px; }
 .header{font-size:3em;}
-
 .description-box{
   padding:15px 25px;
   background:#111;
@@ -119,7 +113,6 @@ body {
   gap:15px;
   text-align:center;
 }
-
 #roster-pfp{
   width:120px;
   height:120px;
@@ -129,26 +122,22 @@ body {
   margin-bottom:10px;
   box-shadow:0 0 10px #ffdab9;
 }
-
 .roster-links{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
 }
-
 .roster-links a{
   color:#ffdab9;
   font-weight:bold;
   cursor:pointer;
   transition:0.2s;
 }
-
 .roster-links a:hover{
   color:white;
   text-shadow:0 0 5px #ffdab9;
 }
-
 .member-panel{
   background:#222;
   padding:10px;
@@ -173,7 +162,6 @@ body {
   z-index:999;
   overflow:hidden;
 }
-
 #bootLogo{
   position:absolute;
   top:50%;
@@ -185,13 +173,11 @@ body {
   pointer-events:none;
   filter:drop-shadow(0 0 15px #ffdab9);
 }
-
 #bootText{
   white-space:pre-line;
   line-height:1.4;
   z-index:2;
 }
-
 .cursor{
   display:inline-block;
   width:10px;
@@ -199,7 +185,6 @@ body {
   margin-left:5px;
   animation:blink 1s infinite;
 }
-
 @keyframes blink{
   0%,50%,100%{opacity:1;}
   25%,75%{opacity:0;}
@@ -227,90 +212,81 @@ body {
 
 <div class="main-content">
 
-<div class="tab active" id="home">
-  <div class="main-section">
-    <img class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
-    <h1 class="header glitch">Zone 15</h1>
-
-    <div class="description-box">
-      Zone 15, Owned by Hanako and Nullify is a strictly Anti - Extortion group, the identifier is 988.<br> 
-      we only use "Legal" ways to obtain information on a extortionist or a pedophile.<br><br>
-      ⚠️ NOTICE TO LAW INFORCEMENT ⚠️<br>
-      We only use legal methods to gather information such as osint which is publicly available we do not 
-      <br> swat or harm any of these people.
+  <div class="tab active" id="home">
+    <div class="main-section">
+      <img class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
+      <h1 class="header glitch">Zone 15</h1>
+      <div class="description-box">
+        Zone 15, Owned by Hanako and Nullify is a strictly Anti - Extortion group, the identifier is 988.<br>
+        we only use "Legal" ways to obtain information on a extortionist or a pedophile.<br><br>
+        ⚠️ NOTICE TO LAW INFORCEMENT ⚠️<br>
+        We only use legal methods to gather information such as osint which is publicly available we do not <br>
+        swat or harm any of these people.
+      </div>
     </div>
   </div>
-</div>
 
-<div class="tab" id="roster">
-  <div class="roster-wrapper">
-    <div id="roster-display">
-      <img id="roster-pfp">
-      <h2 id="roster-name">Select a Member</h2>
-      <p id="roster-role"></p>
-    </div>
-
-    <div class="roster-links" id="roster-links"></div>
-
-    <div class="member-panel" id="member-info">
-      Click a name to see info
+  <div class="tab" id="roster">
+    <div class="roster-wrapper">
+      <div id="roster-display">
+        <img id="roster-pfp">
+        <h2 id="roster-name">Select a Member</h2>
+        <p id="roster-role"></p>
+      </div>
+      <div class="roster-links" id="roster-links"></div>
+      <div class="member-panel" id="member-info">Click a name to see info</div>
     </div>
   </div>
-</div>
 
-<div class="tab" id="history">
-  <div class="roster-wrapper">
-    <h2>History</h2>
-    <p>Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK (Anon) as a friend group. Now it serves as an Anti-Extortion Hub with Hanako remaining as founder.</p>
-  </div>
-</div>
-
-<div class="tab" id="cases">
-  <div class="roster-wrapper">
-    <h2>Case Files</h2>
-
-    <div class="member-panel">
-      <strong>Case #0x01</strong><br>
-      Discord Leaker.<br>
-      Status: CLOSED
+  <div class="tab" id="history">
+    <div class="roster-wrapper">
+      <h2>History</h2>
+      <p>Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK (Anon) as a friend group. Now it serves as an Anti-Extortion Hub with Hanako remaining as founder.</p>
     </div>
+  </div>
 
-    <div class="member-panel">
-      <strong>Case #021</strong><br>
-      Fortnite CSAM Seller.<br>
-      Status: CLOSED
+  <div class="tab" id="cases">
+    <div class="roster-wrapper">
+      <h2>Case Files</h2>
+      <div class="member-panel">
+        <strong>Case #0x01</strong><br>
+        Discord Leaker.<br>
+        Status: CLOSED
+      </div>
+      <div class="member-panel">
+        <strong>Case #021</strong><br>
+        Fortnite CSAM Seller.<br>
+        Status: CLOSED
+      </div>
     </div>
-
   </div>
-</div>
 
-<div class="tab" id="socials">
-  <div class="roster-wrapper">
-    <h2>Socials</h2>
-    <p>Telegram: <a href="https://t.me/Z15AE" target="_blank">https://t.me/Z15AE</a></p>
-    <p>Discord: <a href="https://discord.gg/E5PPckcMHZ" target="_blank">https://discord.gg/E5PPckcMHZ</a></p>
-    <p>Doxbin: <a href="https://doxbin.com/Z15" target="_blank">https://doxbin.com/Z15</a></p>
+  <div class="tab" id="socials">
+    <div class="roster-wrapper">
+      <h2>Socials</h2>
+      <p>Telegram: <a href="https://t.me/Z15AE" target="_blank">https://t.me/Z15AE</a></p>
+      <p>Discord: <a href="https://discord.gg/E5PPckcMHZ" target="_blank">https://discord.gg/E5PPckcMHZ</a></p>
+      <p>Doxbin: <a href="https://doxbin.com/Z15" target="_blank">https://doxbin.com/Z15</a></p>
+    </div>
   </div>
-</div>
 
 </div>
 
 <script>
-
 const bootLines = [
-"[    0.000000] Initializing Zone15 Kernel...",
-"[    0.102341] Loading modules...",
-"[    0.245123] Mounting file systems...",
-"[    0.412532] Starting network manager...",
-"[    0.598234] Establishing secure connection...",
-"[    0.884123] Loading user interface...",
-"[    1.102938] Injecting OSINT modules...",
-"[    1.402193] Checking permissions... OK",
-"[    1.883221] Starting services...",
-"[    2.104923] Anti-Extortion Shield: ACTIVE",
-"[    2.445123] Monitoring channels...",
-"[    2.998321] Finalizing boot sequence...",
-"[    3.000000] Welcome to Zone15...",
+"[ 0.000000] Initializing Zone15 Kernel...",
+"[ 0.102341] Loading modules...",
+"[ 0.245123] Mounting file systems...",
+"[ 0.412532] Starting network manager...",
+"[ 0.598234] Establishing secure connection...",
+"[ 0.884123] Loading user interface...",
+"[ 1.102938] Injecting OSINT modules...",
+"[ 1.402193] Checking permissions... OK",
+"[ 1.883221] Starting services...",
+"[ 2.104923] Anti-Extortion Shield: ACTIVE",
+"[ 2.445123] Monitoring channels...",
+"[ 2.998321] Finalizing boot sequence...",
+"[ 3.000000] Welcome to Zone15...",
 "",
 "Zone15 login system initialized.",
 "",
@@ -326,31 +302,24 @@ let line=0,char=0,typing=true,finished=false;
 function typeBoot(){
   const t=document.getElementById("bootText");
   if(!t || !typing) return;
-
-  if(line>=bootLines.length){
-    finished=true;
-    return;
-  }
-
+  if(line>=bootLines.length){ finished=true; return; }
   const current=bootLines[line];
-
   if(char<current.length){
     t.innerText+=current[char++];
     setTimeout(typeBoot,18);
   } else {
     t.innerText+="\n";
-    line++; char=0;
+    line++;
+    char=0;
     setTimeout(typeBoot,120);
   }
 }
 
 function handleBootClick(){
   const t=document.getElementById("bootText");
-
   typing=false;
   t.innerText=bootLines.join("\n");
   finished=true;
-
   setTimeout(()=>{
     document.getElementById("enter").style.display="none";
   },500);
@@ -358,8 +327,10 @@ function handleBootClick(){
 
 window.addEventListener("load",()=>{
   document.getElementById("bootText").innerText="";
-  line=0; char=0;
-  typing=true; finished=false;
+  line=0;
+  char=0;
+  typing=true;
+  finished=false;
   setTimeout(typeBoot,500);
 });
 
@@ -369,44 +340,17 @@ function openTab(id){
 }
 
 /* ===== FIXED ROSTER (STABLE INIT) ===== */
-
 const members={
-  Hanako:{
-    name:"Hanako",
-    role:"Founder",
-    desc:"The tears of evil will only grow with time.",
-    pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg"
-  },
-  Nullify:{
-    name:"Nullify",
-    role:"Owner",
-    desc:"Exterminating evil one extorter at a time.",
-    pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"
-  },
-  Crave:{
-    name:"Crave",
-    role:"Member",
-    desc:"Quote will be added at a later time.",
-    pfp:"https://i.pinimg.com/736x/26/ab/ee/26abee0f00471e17664aa231aadc83f5.jpg"
-  },
-  Anrxyk:{
-    name:"Anrxyk",
-    role:"Member",
-    desc:"Such a fuckup.",
-    pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg"
-  },
-  Arabz:{
-    name:"Arabz",
-    role:"Member",
-    desc:"Quote will be added at a later time.",
-    pfp:"https://i.pinimg.com/736x/95/b0/6a/95b06ad7e17bb9a65058752f26c0c2f3.jpg"
-  }
+Hanako:{ name:"Hanako", role:"Founder", desc:"The tears of evil will only grow with time.", pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg" },
+Nullify:{ name:"Nullify", role:"Owner", desc:"Exterminating evil one extorter at a time.", pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg" },
+Crave:{ name:"Crave", role:"Member", desc:"Quote will be added at a later time.", pfp:"https://i.pinimg.com/736x/26/ab/ee/26abee0f00471e17664aa231aadc83f5.jpg" },
+Anrxyk:{ name:"Anrxyk", role:"Member", desc:"Such a fuckup.", pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg" },
+Arabz:{ name:"Arabz", role:"Member", desc:"com is boring lol.", pfp:"https://files.catbox.moe/v9vs9b.jpg" }
 };
 
 function initRoster(){
   const box=document.getElementById("roster-links");
   if(!box || box.dataset.ready==="1") return;
-
   box.dataset.ready="1";
   box.innerHTML="";
 
@@ -414,7 +358,6 @@ function initRoster(){
     document.getElementById("roster-name").innerText=members[k].name;
     document.getElementById("roster-role").innerText=members[k].role;
     document.getElementById("member-info").innerText=members[k].desc;
-
     const img=document.getElementById("roster-pfp");
     img.src=members[k].pfp;
     img.style.display="block";
@@ -425,9 +368,10 @@ function initRoster(){
     a.innerText=members[k].name;
     a.onclick=()=>show(k);
     box.appendChild(a);
-
     if(i===0) show(k);
   });
+
+  show("Hanako");
 }
 
 /* SAFE INIT (FIXED) */
@@ -438,9 +382,7 @@ function safeInit(){
     initRoster();
   }
 }
-
 safeInit();
-
 </script>
 
 </body>
