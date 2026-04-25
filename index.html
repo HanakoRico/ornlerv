@@ -16,6 +16,17 @@ body {
   overflow:hidden;
 }
 
+/* STATUS INDICATOR */
+#status{
+  position:fixed;
+  top:10px;
+  right:15px;
+  font-size:12px;
+  color:#0f0;
+  text-shadow:0 0 5px #0f0;
+  z-index:1000;
+}
+
 /* SIDEBAR */
 #sidebar{
   width:50px;
@@ -58,6 +69,18 @@ body {
 /* TABS */
 .tab{display:none;}
 .tab.active{display:flex;flex-direction:column;align-items:center;}
+
+/* GLITCH EFFECT */
+.glitch:hover{
+  animation:glitch 0.2s infinite;
+}
+@keyframes glitch{
+  0%{transform:translate(1px,-1px);}
+  25%{transform:translate(-1px,2px);}
+  50%{transform:translate(2px,1px);}
+  75%{transform:translate(-2px,-1px);}
+  100%{transform:translate(0,0);}
+}
 
 /* HOME */
 .main-section{
@@ -186,8 +209,10 @@ body {
 
 <body>
 
+<div id="status">● SYSTEM STATUS: ONLINE</div>
+
 <div id="enter" onclick="handleBootClick()">
-  <img id="bootLogo" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
+  <img id="bootLogo" class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
   <div id="bootText"></div>
   <span class="cursor"></span>
 </div>
@@ -196,6 +221,7 @@ body {
   <a onclick="openTab('home')">Home</a>
   <a onclick="openTab('roster')">Roster</a>
   <a onclick="openTab('history')">History</a>
+  <a onclick="openTab('cases')">Cases</a>
   <a onclick="openTab('socials')">Socials</a>
 </div>
 
@@ -203,8 +229,8 @@ body {
 
 <div class="tab active" id="home">
   <div class="main-section">
-    <img src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
-    <h1 class="header">Zone 15</h1>
+    <img class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
+    <h1 class="header glitch">Zone 15</h1>
 
     <div class="description-box">
       Zone 15, Owned by Hanako and Nullify is a strictly Anti - Extortion group, the identifier is 988.<br> 
@@ -239,12 +265,31 @@ body {
   </div>
 </div>
 
+<div class="tab" id="cases">
+  <div class="roster-wrapper">
+    <h2>Case Files</h2>
+
+    <div class="member-panel">
+      <strong>Case #0x01</strong><br>
+      Discord Leaker.<br>
+      Status: CLOSED
+    </div>
+
+    <div class="member-panel">
+      <strong>Case #021</strong><br>
+      Fortnite CSAM Seller.<br>
+      Status: CLOSED
+    </div>
+
+  </div>
+</div>
+
 <div class="tab" id="socials">
   <div class="roster-wrapper">
     <h2>Socials</h2>
-    <p>Telegram: https://t.me/Z15AE</p>
-    <p>Discord: https://discord.gg/E5PPckcMHZ</p>
-    <p>Doxbin: https://doxbin.com/Z15</p>
+    <p>Telegram: <a href="https://t.me/Z15AE" target="_blank">https://t.me/Z15AE</a></p>
+    <p>Discord: <a href="https://discord.gg/E5PPckcMHZ" target="_blank">https://discord.gg/E5PPckcMHZ</a></p>
+    <p>Doxbin: <a href="https://doxbin.com/Z15" target="_blank">https://doxbin.com/Z15</a></p>
   </div>
 </div>
 
@@ -299,7 +344,6 @@ function typeBoot(){
   }
 }
 
-/* ✅ FIXED: prevents stuck enter screen */
 function handleBootClick(){
   const t=document.getElementById("bootText");
 
@@ -324,35 +368,47 @@ function openTab(id){
   document.getElementById(id).classList.add("active");
 }
 
-window.addEventListener("load", () => {
-  const box=document.getElementById("roster-links");
+/* ===== FIXED ROSTER (STABLE INIT) ===== */
 
-  const members={
-    "Hanako":{
-      name:"Hanako",
-      role:"Founder",
-      desc:"The tears of evil will only grow with time.",
-      pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg"
-    },
-    "Nullify":{
-      name:"Nullify",
-      role:"Owner",
-      desc:"Exterminating evil one extorter at a time.",
-      pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"
-    },
-    "Crave":{
-      name:"Crave",
-      role:"Member",
-      desc:"Quote will be added at a later time.",
-      pfp:"https://i.pinimg.com/736x/26/ab/ee/26abee0f00471e17664aa231aadc83f5.jpg"
-    },
-    "Anrxyk":{
-      name:"Anrxyk",
-      role:"Member",
-      desc:"Such a fuckup.",
-      pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg"
-    }
-  };
+const members={
+  Hanako:{
+    name:"Hanako",
+    role:"Founder",
+    desc:"The tears of evil will only grow with time.",
+    pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg"
+  },
+  Nullify:{
+    name:"Nullify",
+    role:"Owner",
+    desc:"Exterminating evil one extorter at a time.",
+    pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"
+  },
+  Crave:{
+    name:"Crave",
+    role:"Member",
+    desc:"Quote will be added at a later time.",
+    pfp:"https://i.pinimg.com/736x/26/ab/ee/26abee0f00471e17664aa231aadc83f5.jpg"
+  },
+  Anrxyk:{
+    name:"Anrxyk",
+    role:"Member",
+    desc:"Such a fuckup.",
+    pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg"
+  },
+  Arabz:{
+    name:"Arabz",
+    role:"Member",
+    desc:"Quote will be added at a later time.",
+    pfp:"https://i.pinimg.com/736x/95/b0/6a/95b06ad7e17bb9a65058752f26c0c2f3.jpg"
+  }
+};
+
+function initRoster(){
+  const box=document.getElementById("roster-links");
+  if(!box || box.dataset.ready==="1") return;
+
+  box.dataset.ready="1";
+  box.innerHTML="";
 
   function show(k){
     document.getElementById("roster-name").innerText=members[k].name;
@@ -364,14 +420,26 @@ window.addEventListener("load", () => {
     img.style.display="block";
   }
 
-  Object.keys(members).forEach(k=>{
+  Object.keys(members).forEach((k,i)=>{
     const a=document.createElement("a");
     a.innerText=members[k].name;
     a.onclick=()=>show(k);
     box.appendChild(a);
-  });
 
-});
+    if(i===0) show(k);
+  });
+}
+
+/* SAFE INIT (FIXED) */
+function safeInit(){
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",initRoster);
+  } else {
+    initRoster();
+  }
+}
+
+safeInit();
 
 </script>
 
