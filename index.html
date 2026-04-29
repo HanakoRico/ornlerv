@@ -344,28 +344,38 @@ const bootLines = [
 ];
 
 let line=0,char=0,typing=true,finished=false;
+let bootTimer=null;
 
+/* FIX ONLY: safe stop + no runaway timeout */
 function typeBoot(){
   const t=document.getElementById("bootText");
   if(!t || !typing) return;
+
   if(line>=bootLines.length){ finished=true; return; }
+
   const current=bootLines[line];
+
   if(char<current.length){
     t.innerText+=current[char++];
-    setTimeout(typeBoot,18);
+    bootTimer=setTimeout(typeBoot,18);
   } else {
     t.innerText+="\n";
     line++;
     char=0;
-    setTimeout(typeBoot,120);
+    bootTimer=setTimeout(typeBoot,120);
   }
 }
 
 function handleBootClick(){
-  const t=document.getElementById("bootText");
   typing=false;
-  t.innerText=bootLines.join("\n");
+  clearTimeout(bootTimer);
+
+  document.getElementById("bootText").innerText = bootLines.join("\n");
   finished=true;
+
+  const cursor=document.querySelector(".cursor");
+  if(cursor) cursor.style.display="none";
+
   setTimeout(()=>{
     document.getElementById("enter").style.display="none";
   },500);
@@ -373,8 +383,7 @@ function handleBootClick(){
 
 window.addEventListener("load",()=>{
   document.getElementById("bootText").innerText="";
-  line=0;
-  char=0;
+  line=0; char=0;
   typing=true;
   finished=false;
   setTimeout(typeBoot,500);
@@ -385,7 +394,7 @@ function openTab(id){
   document.getElementById(id).classList.add("active");
 }
 
-/* SAFE INIT (UPDATED) */
+/* ROSTER SCRIPT (UNCHANGED) */
 const members={
 Hanako:{ name:"Hanako", role:"Founder", desc:"A angel who lost it's wings will learn to fly once again..", pfp:"https://i.pinimg.com/736x/93/62/7b/93627b5673661af316322b72eba51aea.jpg" },
 Nullify:{ name:"Nullify", role:"Owner", desc:"Exterminating evil one extorter at a time.", pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg" },
