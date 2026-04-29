@@ -16,6 +16,25 @@ body {
   overflow:hidden;
 }
 
+/* GLITCH BACKGROUND OVERLAY */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif");
+  opacity:0.08;
+  pointer-events:none;
+  animation:bgGlitch 2s infinite;
+}
+
+@keyframes bgGlitch{
+  0%{opacity:0.05; transform:scale(1);}
+  25%{opacity:0.12; transform:scale(1.01);}
+  50%{opacity:0.03;}
+  75%{opacity:0.15; transform:scale(1.02);}
+  100%{opacity:0.05;}
+}
+
 /* STATUS INDICATOR */
 #status{
   position:fixed;
@@ -79,6 +98,18 @@ body {
   50%{transform:translate(2px,1px);}
   75%{transform:translate(-2px,-1px);}
   100%{transform:translate(0,0);}
+}
+
+/* ROSTER NAME GLITCH PULSE */
+#roster-name{
+  animation:nameGlitch 3s infinite;
+}
+@keyframes nameGlitch{
+  0%{opacity:1; transform:translateX(0);}
+  25%{opacity:0.6; transform:translateX(1px);}
+  50%{opacity:1;}
+  75%{opacity:0.3; transform:translateX(-2px);}
+  100%{opacity:1;}
 }
 
 /* HOME */
@@ -354,13 +385,15 @@ function openTab(id){
   document.getElementById(id).classList.add("active");
 }
 
-/* SAFE INIT (FIXED) */
+/* SAFE INIT (UPDATED) */
 const members={
-Hanako:{ name:"Hanako", role:"Founder", desc:"The tears of evil will only grow with time.", pfp:"https://i.pinimg.com/736x/aa/92/25/aa92256ca5b1e60a998a04ddcef6ac49.jpg" },
+Hanako:{ name:"Hanako", role:"Founder", desc:"A angel who lost it's wings will learn to fly once again..", pfp:"https://i.pinimg.com/736x/93/62/7b/93627b5673661af316322b72eba51aea.jpg" },
 Nullify:{ name:"Nullify", role:"Owner", desc:"Exterminating evil one extorter at a time.", pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg" },
 Crave:{ name:"Crave", role:"Member", desc:"Quote will be added at a later time.", pfp:"https://i.pinimg.com/736x/26/ab/ee/26abee0f00471e17664aa231aadc83f5.jpg" },
-Anrxyk:{ name:"Anrxyk", role:"Member1", desc:"Such a fuckup.", pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg" },
-Arabz:{ name:"Arabz", role:"Member", desc:"com is boring lol.", pfp:"https://files.catbox.moe/v9vs9b.jpg" }
+Anrxyk:{ name:"Anrxyk", role:"Member", desc:"Such a fuckup.", pfp:"https://i.pinimg.com/736x/52/ec/28/52ec28b38a06c4279d5ffc2284c3df94.jpg" },
+Arabz:{ name:"Arabz", role:"Member", desc:"com is boring lol.", pfp:"https://files.catbox.moe/v9vs9b.jpg" },
+poptart:{ name:"Poptart", role:"Member", desc:"Retired, genius Anti - Extortion com boss.", pfp:"https://i.pinimg.com/736x/da/0b/7c/da0b7c353687eaf19567c845b7b9a75d.jpg" },
+stray:{ name:"Stray", role:"Member", desc:"Stray has known Hanako for years and is deserving of this spot.", pfp:"https://i.pinimg.com/736x/f9/b3/b0/f9b3b0cb05db0a2869b52c3cc310ec9d.jpg" }
 };
 
 function initRoster(){
@@ -389,7 +422,6 @@ function initRoster(){
   show("Hanako");
 }
 
-/* RUN ONCE RELIABLY */
 if(document.readyState==="loading"){
   document.addEventListener("DOMContentLoaded",initRoster);
 } else {
