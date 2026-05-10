@@ -16,7 +16,6 @@ body {
   overflow:hidden;
 }
 
-/* GLITCH BACKGROUND OVERLAY */
 body::before{
   content:"";
   position:fixed;
@@ -35,7 +34,7 @@ body::before{
   100%{opacity:0.05;}
 }
 
-/* STATUS INDICATOR */
+  
 #status{
   position:fixed;
   top:10px;
@@ -46,7 +45,7 @@ body::before{
   z-index:1000;
 }
 
-/* SIDEBAR */
+  
 #sidebar{
   width:50px;
   background:#111;
@@ -74,7 +73,6 @@ body::before{
   transform:translateX(10px);
 }
 
-/* MAIN */
 .main-content{
   flex:1;
   display:flex;
@@ -84,11 +82,10 @@ body::before{
   overflow:auto;
 }
 
-/* TABS */
 .tab{display:none;}
 .tab.active{display:flex;flex-direction:column;align-items:center;}
 
-/* GLITCH EFFECT */
+
 .glitch:hover{
   animation:glitch 0.2s infinite;
 }
@@ -100,7 +97,7 @@ body::before{
   100%{transform:translate(0,0);}
 }
 
-/* ROSTER NAME GLITCH PULSE */
+
 #roster-name{
   animation:nameGlitch 3s infinite;
 }
@@ -130,7 +127,7 @@ body::before{
   box-shadow:0 0 15px #ffdab9;
 }
 
-/* ROSTER */
+
 .roster-wrapper{
   background:#111;
   border:2px solid #ffdab9;
@@ -394,9 +391,8 @@ function openTab(id){
   document.getElementById(id).classList.add("active");
 }
 
-/* ROSTER SCRIPT (UNCHANGED) */
 const members={
-Hanako:{name:"Hanako",role:"Owner",desc:"A angel who lost it's wings will learn to fly once again..",pfp:"https://i.pinimg.com/736x/93/62/7b/93627b5673661af316322b72eba51aea.jpg"},
+Hanako:{name:"Hanako",role:"Owner",desc:"An angel who lost its wings will learn to fly once again..",pfp:"https://i.pinimg.com/736x/13/ef/0f/13ef0fd60222de7383a1d98d28678f47.jpg"},
 Nullify:{name:"Nullify",role:"Owner",desc:"Exterminating evil one extorter at a time.",pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"},
 Arabz:{name:"Arabz",role:"Member",desc:"com is boring lol.",pfp:"https://files.catbox.moe/v9vs9b.jpg"},
 Spirit:{name:"Spirit",role:"Member",desc:"Why must bad things happen to good people.",pfp:"https://files.catbox.moe/i1otig.jpg"},
