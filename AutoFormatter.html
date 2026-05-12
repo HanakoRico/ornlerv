@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auto Formater</title>
+
+<style>
+body {
+  margin:0;
+  background:#000;
+  color:#ffdab9;
+  font-family:Consolas, monospace;
+}
+
+header {
+  text-align:center;
+  padding:10px;
+  font-size:20px;
+  border-bottom:1px solid #222;
+}
+
+.controls {
+  text-align:center;
+  padding:8px;
+}
+
+button {
+  background:#111;
+  color:#ffdab9;
+  border:1px solid #333;
+  padding:6px 10px;
+  margin:3px;
+  cursor:pointer;
+}
+
+#container {
+  display:flex;
+  height:90vh;
+}
+
+#templateBox {
+  width:35%;
+  background:#050505;
+  color:#ffdab9;
+  border:none;
+  padding:10px;
+  resize:none;
+  outline:none;
+}
+
+#form {
+  width:25%;
+  padding:10px;
+  border-left:1px solid #222;
+  border-right:1px solid #222;
+  overflow-y:auto;
+}
+
+#preview {
+  width:40%;
+  padding:10px;
+  white-space:pre;
+  overflow:auto;
+  font-size:11px;
+}
+
+.field {
+  margin-bottom:8px;
+}
+
+.field label {
+  font-size:11px;
+  opacity:0.7;
+  display:block;
+  margin-bottom:2px;
+}
+
+.field input {
+  width:100%;
+  background:#111;
+  border:1px solid #333;
+  color:#ffdab9;
+  padding:4px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Hanako's Autoformatter!</header>
+
+<div class="controls">
+  <button onclick="copyOutput()">Copy</button>
+  <button onclick="downloadOutput()">Download</button>
+</div>
+
+<div id="container">
+  <textarea id="templateBox"></textarea>
+  <div id="form"></div>
+  <div id="preview"></div>
+</div>
+
+<script>
+let lines = [];
+let inputsByIndex = {};
+
+//////////////////////////////////////////////////////////
+// ✅ BALANCED FIELD DETECTOR (FIXED)
+//////////////////////////////////////////////////////////
+
+function isEditableLine(line) {
+  if (!line || !line.includes(":")) return false;
+
+  let idx = line.indexOf(":");
+  let key = line.slice(0, idx).trim();
+  let value = line.slice(idx + 1).trim();
+
+  // must have real content on both sides
+  if (!key || !value) return false;
+
+  // key must contain at least 1 letter
+  if (!/[a-zA-Z]/.test(key)) return false;
+
+  // reject pure ASCII decoration keys
+  if (/^[^a-zA-Z0-9]+$/.test(key)) return false;
+
+  // reject lines that are mostly symbols
+  let symbolRatio = (line.match(/[^a-zA-Z0-9:@._\-\s]/g) || []).length / line.length;
+  if (symbolRatio > 0.6) return false;
+
+  return true;
+}
+
+//////////////////////////////////////////////////////////
+// CLEAN KEY
+//////////////////////////////////////////////////////////
+
+function cleanKey(raw) {
+  return raw
+    .replace(/[║═╔╗╚╝╠╣╬»~\-|*]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+//////////////////////////////////////////////////////////
+// DEBOUNCE
+//////////////////////////////////////////////////////////
+
+function debounce(fn, delay) {
+  let t;
+  return function() {
+    clearTimeout(t);
+    t = setTimeout(fn, delay);
+  };
+}
+
+const debouncedBuild = debounce(buildForm, 80);
+const debouncedPreview = debounce(updatePreview, 50);
+
+//////////////////////////////////////////////////////////
+// INPUT HANDLER
+//////////////////////////////////////////////////////////
+
+document.getElementById("templateBox").addEventListener("input", () => {
+  lines = document.getElementById("templateBox").value.split("\n");
+  debouncedBuild();
+  debouncedPreview();
+});
+
+//////////////////////////////////////////////////////////
+// BUILD FORM
+//////////////////////////////////////////////////////////
+
+function buildForm() {
+  const form = document.getElementById("form");
+  form.innerHTML = "";
+  inputsByIndex = {};
+
+  lines.forEach((line, index) => {
+    if (!isEditableLine(line)) return;
+
+    let idx = line.indexOf(":");
+    let key = cleanKey(line.slice(0, idx));
+    let value = line.slice(idx + 1).trim();
+
+    if (!key) return;
+
+    let div = document.createElement("div");
+    div.className = "field";
+
+    let label = document.createElement("label");
+    label.textContent = key;
+
+    let input = document.createElement("input");
+    input.value = value;
+    input.dataset.index = index;
+
+    input.addEventListener("input", debouncedPreview);
+
+    inputsByIndex[index] = input;
+
+    div.appendChild(label);
+    div.appendChild(input);
+    form.appendChild(div);
+  });
+}
+
+//////////////////////////////////////////////////////////
+// UPDATE PREVIEW
+//////////////////////////////////////////////////////////
+
+function updatePreview() {
+  let output = lines.map((line, index) => {
+    let input = inputsByIndex[index];
+    if (!input) return line;
+
+    let idx = line.indexOf(":");
+    let key = line.slice(0, idx);
+    return key + ": " + input.value;
+  });
+
+  document.getElementById("preview").textContent = output.join("\n");
+}
+
+//////////////////////////////////////////////////////////
+// COPY
+//////////////////////////////////////////////////////////
+
+function copyOutput() {
+  navigator.clipboard.writeText(document.getElementById("preview").textContent);
+  alert("Copied!");
+}
+
+//////////////////////////////////////////////////////////
+// DOWNLOAD
+//////////////////////////////////////////////////////////
+
+function downloadOutput() {
+  let blob = new Blob([document.getElementById("preview").textContent], {
+    type: "text/plain"
+  });
+
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "zone15.txt";
+  a.click();
+}
+
+//////////////////////////////////////////////////////////
+// DEFAULT TEST TEMPLATE
+//////////////////////////////////////////////////////////
+
+
+lines = document.getElementById("templateBox").value.split("\n");
+buildForm();
+updatePreview();
+
+</script>
+
+</body>
+</html>
