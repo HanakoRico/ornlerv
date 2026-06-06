@@ -1,443 +1,180 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zone 15 (988)</title>
+<title>bio</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
 body {
-  margin:0;
-  padding:0;
-  font-family:Arial;
-  background:black;
-  color:#ffdab9;
-  display:flex;
-  overflow:hidden;
+  height: 100vh;
+  background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzhxYWQ0d2dnYWZqeWtibGJxdXVtOXJlaW9nMDRqcDliYTAzcG1nYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/McKNBovGgoZCG5HBCK/giphy.gif') no-repeat center/cover;
+  overflow: hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url("https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif");
-  opacity:0.08;
-  pointer-events:none;
-  animation:bgGlitch 2s infinite;
+/* CLICK SCREEN */
+.enter-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
 }
 
-@keyframes bgGlitch{
-  0%{opacity:0.05; transform:scale(1);}
-  25%{opacity:0.12; transform:scale(1.01);}
-  50%{opacity:0.03;}
-  75%{opacity:0.15; transform:scale(1.02);}
-  100%{opacity:0.05;}
+.enter-text {
+  color: white;
+  font-size: 22px;
+  letter-spacing: 3px;
+  opacity: 0.7;
+  transition: 0.3s;
 }
 
-  
-#status{
-  position:fixed;
-  top:10px;
-  right:15px;
-  font-size:12px;
-  color:#0f0;
-  text-shadow:0 0 5px #0f0;
-  z-index:1000;
+.enter-text:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
-  
-#sidebar{
-  width:50px;
-  background:#111;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-top:20px;
-  transition:0.3s;
-  border-radius:0 10px 10px 0;
-  box-shadow:0 0 8px #ffdab9;
-}
-#sidebar:hover{width:180px;}
-#sidebar a{
-  color:#ffdab9;
-  text-decoration:none;
-  font-weight:bold;
-  padding:10px;
-  width:100%;
-  opacity:0;
-  transition:0.3s;
-  cursor:pointer;
-}
-#sidebar:hover a{
-  opacity:1;
-  transform:translateX(10px);
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.6);
 }
 
-.main-content{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:auto;
+/* BG TEXT */
+.bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18vw;
+  color: rgba(255,255,255,0.04);
+  letter-spacing: 30px;
 }
 
-.tab{display:none;}
-.tab.active{display:flex;flex-direction:column;align-items:center;}
-
-
-.glitch:hover{
-  animation:glitch 0.2s infinite;
-}
-@keyframes glitch{
-  0%{transform:translate(1px,-1px);}
-  25%{transform:translate(-1px,2px);}
-  50%{transform:translate(2px,1px);}
-  75%{transform:translate(-2px,-1px);}
-  100%{transform:translate(0,0);}
+/* CARD */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
 }
 
-
-#roster-name{
-  animation:nameGlitch 3s infinite;
-}
-@keyframes nameGlitch{
-  0%{opacity:1; transform:translateX(0);}
-  25%{opacity:0.6; transform:translateX(1px);}
-  50%{opacity:1;}
-  75%{opacity:0.3; transform:translateX(-2px);}
-  100%{opacity:1;}
-}
-
-/* HOME */
-.main-section{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
-}
-.main-section img{ max-width:200px; }
-.header{font-size:3em;}
-.description-box{
-  padding:15px 25px;
-  background:#111;
-  border-radius:10px;
-  text-align:center;
-  border:2px solid #ffdab9;
-  box-shadow:0 0 15px #ffdab9;
+/* PFP */
+.pfp {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 25px rgba(255,255,255,0.2);
+  transition: 0.3s;
 }
 
-
-.roster-wrapper{
-  background:#111;
-  border:2px solid #ffdab9;
-  border-radius:10px;
-  padding:20px;
-  width:90%;
-  max-width:500px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:15px;
-  text-align:center;
-}
-#roster-pfp{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  object-fit:cover;
-  display:none;
-  margin-bottom:10px;
-  box-shadow:0 0 10px #ffdab9;
-}
-.roster-links{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-}
-.roster-links a{
-  color:#ffdab9;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.2s;
-}
-.roster-links a:hover{
-  color:white;
-  text-shadow:0 0 5px #ffdab9;
-}
-.member-panel{
-  background:#222;
-  padding:10px;
-  border-radius:8px;
-  width:100%;
-  text-align:center;
+.pfp:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(255,255,255,0.4);
 }
 
-/* BOOT SCREEN */
-#enter{
-  position:fixed;
-  inset:0;
-  background:black;
-  color:#ffdab9;
-  font-family:monospace;
-  display:flex;
-  justify-content:flex-start;
-  align-items:flex-start;
-  padding:20px;
-  font-size:14px;
-  cursor:pointer;
-  z-index:999;
-  overflow:hidden;
+/* TEXT */
+.name {
+  font-size: 32px;
+  margin-bottom: 6px;
 }
-#bootLogo{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  width:220px;
-  height:auto;
-  opacity:0.95;
-  pointer-events:none;
-  filter:drop-shadow(0 0 15px #ffdab9);
+
+.alias {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 22px;
 }
-#bootText{
-  white-space:pre-line;
-  line-height:1.4;
-  z-index:2;
+
+/* LINKS */
+.links a {
+  display: block;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  margin: 7px 0;
+  transition: 0.2s;
 }
-.cursor{
-  display:inline-block;
-  width:10px;
-  background:#ffdab9;
-  margin-left:5px;
-  animation:blink 1s infinite;
+
+.links a:hover {
+  color: white;
+  transform: scale(1.05);
 }
-@keyframes blink{
-  0%,50%,100%{opacity:1;}
-  25%,75%{opacity:0;}
+
+/* HIDDEN AUDIO */
+#bgMusic {
+  display: none;
 }
 </style>
 </head>
 
 <body>
 
-<div id="status">● SYSTEM STATUS: ONLINE</div>
-
-<div id="enter" onclick="handleBootClick()">
-  <img id="bootLogo" class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
-  <div id="bootText"></div>
-  <span class="cursor"></span>
+<!-- CLICK TO ENTER -->
+<div class="enter-screen" id="enterScreen">
+  <div class="enter-text">CLICK TO ENTER</div>
 </div>
 
-<div id="sidebar">
-  <a onclick="openTab('home')">Home</a>
-  <a onclick="openTab('roster')">Roster</a>
-  <a onclick="openTab('history')">History</a>
-  <a onclick="openTab('cases')">Cases</a>
-  <a onclick="openTab('socials')">Socials</a>
+<div class="overlay"></div>
+<div class="bg">SRT</div>
+
+<div class="card">
+  <img src="https://i.pinimg.com/736x/4d/d6/b4/4dd6b4b16261afaf996b8a41ed50854f.jpg" class="pfp">
+
+  <div class="name">Hanako</div>
+  <div class="alias">My first strike was a charger.</div>
+
+  <div class="links">
+    <a href="#">discord</a>
+  </div>
 </div>
 
-<div class="main-content">
-
-  <div class="tab active" id="home">
-    <div class="main-section">
-      <img class="glitch" src="https://i.pinimg.com/originals/cd/b3/7f/cdb37fffab3771d4218bc1e97d6fcac8.gif">
-      <h1 class="header glitch">Zone 15</h1>
-      <div class="description-box">
-        Zone 15, Owned by Hanako and Nullify is a strictly Anti - Extortion group, the identifier is 988.<br>
-        we only use "Legal" ways to obtain information on a extortionist or a pedophile.<br><br>
-        ⚠️ NOTICE TO LAW INFORCEMENT ⚠️<br>
-        We only use legal methods to gather information such as osint which is publicly available we do not <br>
-        swat or harm any of these people.
-      </div>
-    </div>
-  </div>
-
-  <div class="tab" id="roster">
-    <div class="roster-wrapper">
-      <div id="roster-display">
-        <img id="roster-pfp">
-        <h2 id="roster-name">Select a Member</h2>
-        <p id="roster-role"></p>
-      </div>
-      <div class="roster-links" id="roster-links"></div>
-      <div class="member-panel" id="member-info">Click a name to see info</div>
-    </div>
-  </div>
-
-  <div class="tab" id="history">
-    <div class="roster-wrapper">
-      <h2>History</h2>
-      <p>Zone 15 otherwise known as Z15 was founded in 2021 by Hanako and YTK (Anon) as a friend group. Now it serves as an Anti-Extortion Hub with Hanako remaining as founder.</p>
-    </div>
-  </div>
-
-  <div class="tab" id="cases">
-    <div class="roster-wrapper">
-      <h2>Case Files</h2>
-
-      <div class="member-panel">
-        <strong>#001 (Codename: Draco)</strong><br>
-        Discord illegal content distribution case.<br>
-        STATUS: Closed
-      </div>
-
-      <div class="member-panel">
-        <strong>#002 (Codename: Kidday)</strong><br>
-        Fortnite YouTuber & CSAM Seller.<br>
-        STATUS: Closed
-      </div>
-
-      <div class="member-panel">
-        <strong>#003 (Codename: SkidLarp)</strong><br>
-        Extortion-related activity / assault allegations.<br>
-        STATUS: Closed
-      </div>
-
-      <div class="member-panel">
-        <strong>#004 (Codename: Morals764)</strong><br>
-        Extortionist / Cybercriminal LARPing 764.<br>
-        STATUS: Closed
-      </div>
-
-      <div class="member-panel">
-        <strong>#005 (Codename: FlakoSSK)</strong><br>
-        Extortionist / Cybercriminal backdoored by his homie.<br>
-        STATUS: Closed
-      </div>
-
-    </div>
-  </div>
-
-  <div class="tab" id="socials">
-    <div class="roster-wrapper">
-      <h2>Socials</h2>
-      <p>Telegram: <a href="https://t.me/Z15AE" target="_blank">https://t.me/Z15AE</a></p>
-      <p>Discord: <a href="https://discord.gg/988" target="_blank">https://discord.gg/988</a></p>
-      <p>Doxbin: <a href="https://doxbin.com/Z15" target="_blank">https://doxbin.com/Z15</a></p>
-    </div>
-  </div>
-
-</div>
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/fk8drg.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const bootLines = [
-"[ 0.000000] Initializing Zone15 Kernel...",
-"[ 0.102341] Loading modules...",
-"[ 0.245123] Mounting file systems...",
-"[ 0.412532] Starting network manager...",
-"[ 0.598234] Establishing secure connection...",
-"[ 0.884123] Loading user interface...",
-"[ 1.102938] Injecting OSINT modules...",
-"[ 1.402193] Checking permissions... OK",
-"[ 1.883221] Starting services...",
-"[ 2.104923] Anti-Extortion Shield: ACTIVE",
-"[ 2.445123] Monitoring channels...",
-"[ 2.998321] Finalizing boot sequence...",
-"[ 3.000000] Welcome to Zone15...",
-"",
-"Zone15 login system initialized.",
-"",
-"Username: Zone15",
-"Password: ******",
-"",
-"You successfully logged in",
-"Click to enter"
-];
+const screen = document.getElementById("enterScreen");
+const music = document.getElementById("bgMusic");
 
-let line=0,char=0,typing=true,finished=false;
-let bootTimer=null;
+screen.addEventListener("click", () => {
+  screen.style.opacity = "0";
 
-/* FIX ONLY: safe stop + no runaway timeout */
-function typeBoot(){
-  const t=document.getElementById("bootText");
-  if(!t || !typing) return;
+  setTimeout(() => {
+    screen.style.display = "none";
+  }, 800);
 
-  if(line>=bootLines.length){ finished=true; return; }
+  music.volume = 0.6;
 
-  const current=bootLines[line];
+  const playPromise = music.play();
 
-  if(char<current.length){
-    t.innerText+=current[char++];
-    bootTimer=setTimeout(typeBoot,18);
-  } else {
-    t.innerText+="\n";
-    line++;
-    char=0;
-    bootTimer=setTimeout(typeBoot,120);
+  if (playPromise !== undefined) {
+    playPromise.catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
   }
-}
-
-function handleBootClick(){
-  typing=false;
-  clearTimeout(bootTimer);
-
-  document.getElementById("bootText").innerText = bootLines.join("\n");
-  finished=true;
-
-  const cursor=document.querySelector(".cursor");
-  if(cursor) cursor.style.display="none";
-
-  setTimeout(()=>{
-    document.getElementById("enter").style.display="none";
-  },500);
-}
-
-window.addEventListener("load",()=>{
-  document.getElementById("bootText").innerText="";
-  line=0; char=0;
-  typing=true;
-  finished=false;
-  setTimeout(typeBoot,500);
 });
-
-function openTab(id){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-
-const members={
-Hanako:{name:"Hanako",role:"Owner",desc:"An angel who lost its wings will learn to fly once again..",pfp:"https://i.pinimg.com/736x/13/ef/0f/13ef0fd60222de7383a1d98d28678f47.jpg"},
-Nullify:{name:"Nullify",role:"Owner",desc:"Exterminating evil one extorter at a time.",pfp:"https://i.pinimg.com/736x/bb/1a/7a/bb1a7a995421a190f10ae32d309a3ccc.jpg"},
-Arabz:{name:"Arabz",role:"Admin",desc:"com is boring lol.",pfp:"https://files.catbox.moe/v9vs9b.jpg"},
-Databroker:{name:"Databroker",role:"Admin",desc:"In this world, Wherever there is light, There are also shadows.",pfp:"https://files.catbox.moe/plw8a5.jpg"},
-Spirit:{name:"Spirit",role:"Member",desc:"Why must bad things happen to good people.",pfp:"https://files.catbox.moe/i1otig.jpg"},
-Mossad:{name:"Mossad",role:"Member",desc:"Good things come to a end.",pfp:"https://files.catbox.moe/fyicgp.jpg"},
-Morph:{name:"Morphine",role:"Member",desc:"I don’t know about angels, but it’s fear that gives men wings.", pfp:"https://files.catbox.moe/x7xlqe.jpg"}
-};
-
-function initRoster(){
-  const box=document.getElementById("roster-links");
-  if(!box) return;
-
-  box.innerHTML="";
-
-  function show(k){
-    document.getElementById("roster-name").innerText=members[k].name;
-    document.getElementById("roster-role").innerText=members[k].role;
-    document.getElementById("member-info").innerText=members[k].desc;
-
-    const img=document.getElementById("roster-pfp");
-    img.src=members[k].pfp;
-    img.style.display="block";
-  }
-
-  Object.keys(members).forEach((k)=>{
-    const a=document.createElement("a");
-    a.innerText=members[k].name;
-    a.onclick=()=>show(k);
-    box.appendChild(a);
-  });
-
-  show("Hanako");
-}
-
-if(document.readyState==="loading"){
-  document.addEventListener("DOMContentLoaded",initRoster);
-} else {
-  initRoster();
-}
 </script>
 
 </body>
