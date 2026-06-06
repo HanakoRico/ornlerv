@@ -46,7 +46,7 @@ body {
   opacity: 1;
   transform: scale(1.1);
 }
-  
+
 .overlay {
   position: absolute;
   width: 100%;
@@ -61,8 +61,13 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18vw;
-  color: rgba(255,255,255,0.04);
-  letter-spacing: 30px;
+  font-family: Georgia, serif;
+  letter-spacing: 25px;
+  color: rgba(160, 60, 255, 0.10);
+  text-shadow: 0 0 25px rgba(170, 0, 255, 0.35),
+               0 0 60px rgba(120, 0, 255, 0.45),
+               0 0 120px rgba(40, 0, 80, 0.7);
+  filter: contrast(140%) saturate(160%);
 }
 
 .card {
@@ -81,13 +86,13 @@ body {
   margin-bottom: 15px;
   object-fit: cover;
   border: 3px solid rgba(255,255,255,0.25);
-  box-shadow: 0 0 25px rgba(255,255,255,0.2);
+  box-shadow: 0 0 25px rgba(170, 0, 255, 0.25);
   transition: 0.3s;
 }
 
 .pfp:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 40px rgba(255,255,255,0.4);
+  box-shadow: 0 0 40px rgba(180, 0, 255, 0.5);
 }
 
 .name {
@@ -127,6 +132,7 @@ body {
 </div>
 
 <div class="overlay"></div>
+
 <div class="bg">SRT</div>
 
 <div class="card">
@@ -167,6 +173,16 @@ screen.addEventListener("click", () => {
     });
   }
 });
+
+const titleText = "SRT Hanako";
+let i = 0;
+
+setInterval(() => {
+  document.title = titleText.slice(0, i);
+  i++;
+
+  if (i > titleText.length) i = 0;
+}, 200);
 </script>
 
 </body>
