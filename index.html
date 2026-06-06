@@ -57,7 +57,7 @@ body {
 
 .bg {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18vw;
@@ -104,6 +104,8 @@ body {
   font-size: 14px;
   opacity: 0.6;
   margin-bottom: 22px;
+  min-height: 18px;
+  color: rgba(140, 60, 255, 0.75);
 }
 
 .links a {
@@ -139,7 +141,7 @@ body {
   <img src="https://i.pinimg.com/736x/4d/d6/b4/4dd6b4b16261afaf996b8a41ed50854f.jpg" class="pfp">
 
   <div class="name">Hanako</div>
-  <div class="alias">Countin' money what the fuck is a budget.</div>
+  <div class="alias" id="bio"></div>
 
   <div class="links">
     <a href="https://discord.gg/988" target="_blank">Discord</a>
@@ -164,7 +166,6 @@ screen.addEventListener("click", () => {
   }, 800);
 
   music.volume = 0.6;
-
   const playPromise = music.play();
 
   if (playPromise !== undefined) {
@@ -180,9 +181,35 @@ let i = 0;
 setInterval(() => {
   document.title = titleText.slice(0, i);
   i++;
-
   if (i > titleText.length) i = 0;
 }, 200);
+
+const bioText = "Countin' money what the fuck is a budget.";
+const bio = document.getElementById("bio");
+
+let bi = 0;
+let deleting = false;
+
+function typeBio() {
+  if (!deleting) {
+    bio.textContent = bioText.slice(0, bi++);
+    if (bi > bioText.length) {
+      deleting = true;
+      setTimeout(typeBio, 1200);
+      return;
+    }
+  } else {
+    bio.textContent = bioText.slice(0, bi--);
+    if (bi < 0) {
+      deleting = false;
+      bi = 0;
+    }
+  }
+
+  setTimeout(typeBio, deleting ? 40 : 70);
+}
+
+typeBio();
 </script>
 
 </body>
