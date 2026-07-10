@@ -6,7 +6,7 @@
 <title>Catboy Hanako</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=UnifrakturCook:wght@700&display=swap');
 
 * {
   margin: 0;
@@ -17,7 +17,11 @@
 
 body {
   height: 100vh;
-  background: url('https://imgs.search.brave.com/3bKkLUvDxYVGhrbIaN8kjQVTTSAgctTp-9CrPC_7zsc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/OF9CTUtxMHNqWDRB/QUFBTS9uZWFyLWRl/YXRoLW5vdGUuZ2lm.gif') no-repeat center/cover;
+  background-image: url('https://media.tenor.com/8_BMKq0sjX4AAAAM/near-death-note.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
   overflow: hidden;
 }
 
@@ -52,7 +56,7 @@ body {
   width: 100%;
   height: 100%;
   backdrop-filter: blur(6px);
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
 }
 
 .bg {
@@ -60,14 +64,12 @@ body {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 18vw;
-  font-family: Georgia, serif;
-  letter-spacing: 25px;
-  color: rgba(160, 60, 255, 0.10);
-  text-shadow: 0 0 25px rgba(170, 0, 255, 0.35),
-               0 0 60px rgba(120, 0, 255, 0.45),
-               0 0 120px rgba(40, 0, 80, 0.7);
-  filter: contrast(140%) saturate(160%);
+  font-size: 20vw;
+  font-family: 'UnifrakturCook', cursive;
+  letter-spacing: 10px;
+  color: white;
+  opacity: 0.6;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 
 .card {
@@ -86,13 +88,12 @@ body {
   margin-bottom: 15px;
   object-fit: cover;
   border: 3px solid rgba(255,255,255,0.25);
-  box-shadow: 0 0 25px rgba(170, 0, 255, 0.25);
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
   transition: 0.3s;
 }
 
 .pfp:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 40px rgba(180, 0, 255, 0.5);
 }
 
 .name {
@@ -101,16 +102,16 @@ body {
 }
 
 .alias {
-  font-size: 14px;
-  opacity: 0.6;
+  font-size: 15px;
+  color: black;
   margin-bottom: 22px;
   min-height: 18px;
-  color: rgba(140, 60, 255, 0.75);
+  text-shadow: 0 1px 4px rgba(255,255,255,0.6);
 }
 
 .links a {
   display: block;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.85);
   text-decoration: none;
   margin: 7px 0;
   transition: 0.2s;
@@ -151,7 +152,7 @@ body {
 </div>
 
 <audio id="bgMusic" loop>
-  <source src="https://files.catbox.moe/fk8drg.mp3" type="audio/mpeg">
+  <source src="https://archive.org/download/death-note-ost-1/01.%20Death%20Note.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -160,19 +161,12 @@ const music = document.getElementById("bgMusic");
 
 screen.addEventListener("click", () => {
   screen.style.opacity = "0";
-
   setTimeout(() => {
     screen.style.display = "none";
   }, 800);
 
   music.volume = 0.6;
-  const playPromise = music.play();
-
-  if (playPromise !== undefined) {
-    playPromise.catch(err => {
-      console.log("Autoplay blocked:", err);
-    });
-  }
+  music.play().catch(() => {});
 });
 
 const titleText = "Catboy Hanako";
@@ -184,7 +178,7 @@ setInterval(() => {
   if (i > titleText.length) i = 0;
 }, 200);
 
-const bioText = "Near the end if the game, it will all change, everything will flip.";
+const bioText = "Near the end of the game, it will all change, everything will flip.";
 const bio = document.getElementById("bio");
 
 let bi = 0;
